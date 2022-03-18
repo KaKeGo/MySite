@@ -11,3 +11,6 @@ class BlogView(generic.ListView):
     template_name = 'blogs/blog.html'
     model = Blog
 
+class BlogDetailView(generic.DetailView):
+    template_name = 'blogs/detail_blog.html'
+    model = Blog
