@@ -5,16 +5,56 @@
 {% block title %}{% endblock %}
 
 {% block content %}
+<style>
+    img{
+        width: 75%;
+        border-radius: 15px;
+    }
+    .b{
+        border-radius: 15px;
+    }
+    .card{
+        border-radius: 40px;
+    }
+</style>
 
-<hr/>
-<div>
-    {% for blog in object_list %}
-        <h6>{{blog.title}} | {{blog.author}}<a class="mx-5 btn btn-secondary btn-sm" href="{{blog.get_absolute_url}}">Check</a></h6>
-        <hr/>
-        <small>{{blog.body}}</small>
-        <hr/>
-        <p>{{blog.create_on}}</p>
-    {% endfor %}
+<div class="container mx-5 row">
+    <div class="row row-cols-3">
+        <div>
+            <a class="mt-5 b mx-5"></a>
+        </div>
+        <div>
+            <a href="{% url 'blogs:blog' %}" class="btn btn-outline-success mt-5 b mx-5">Create blog</a>
+        </div>
+        <div>
+            <a class="mt-5 b mx-5"></a>
+        </div>
+    </div>
 </div>
+
+{% for blog in object_list %}
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-header mt-3"></div>
+      <div class="card-body">
+        <div class="text-center">
+            <h5 class="card-title">{{blog.title}}</h5>
+        </div>
+          <hr/>
+        <div class="mx-5">
+            <p class="card-text">{{blog.body|truncatechars:180}}</p>
+        </div>
+        <div class="mt-4 mx-5">
+            <div class="row mx-5 ">
+                <a href="{{blog.get_absolute_url}}" class="btn btn-primary b">Check</a>
+            </div>
+        </div>
+      </div>
+      <div class="card-footer text-muted text-center mt-3">
+        <strong>Author: {{blog.author}} Create: {{blog.create_on}}</strong>
+      </div>
+    </div>
+</div>
+{% endfor %}
 
 {% endblock %}
