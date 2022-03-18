@@ -9,11 +9,11 @@ from django.contrib.auth.models import User
 class Blog(models.Model):
     title = models.CharField(max_length=50, null=True, blank=True)
     body = models.TextField()
-    image = models.ImageField(upload_to='blog_images',)
+    image = models.ImageField(upload_to='blog_images', blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, blank=True, null=True)
-    create_on = models.DateTimeField(auto_now_add=True)
-    update_on = models.DateTimeField(auto_now=True)
+    create_on = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    update_on = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     class Meta:
         ordering = ['-create_on']
