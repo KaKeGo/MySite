@@ -3,6 +3,7 @@ from django.views import generic
 from django.urls import reverse_lazy
 
 from .models import Blog
+from .forms import BlogCreateForm
 
 # Create your views here.
 
@@ -14,3 +15,8 @@ class BlogView(generic.ListView):
 class BlogDetailView(generic.DetailView):
     template_name = 'blogs/detail_blog.html'
     model = Blog
+
+class BlogCreateView(generic.CreateView):
+    template_name = 'blogs/create_blog.html'
+    model = Blog
+    form_class = BlogCreateForm
