@@ -15,10 +15,38 @@
 </div>
 
 
-<form method="post" enctype="multipart/form-data">{% csrf_token %}
-<div class="form-control shadow p-4">
-    {{form.as_p}}
-    <button type="submit" class="btn btn-dark">Create post</button>
+<form class="p-4 mx-5" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <div class="form-control ">
+        <div class="mx-5 p-5">
+            <div class="m-4 text-center">
+                <h4><strong>Create blog</strong></h4>
+            </div>
+            <div class="m-4">
+                <input class="form-control" name="title">
+            </div>
+            <div class="m-4">
+                <textarea class="form-control" name="body"></textarea>
+            </div>
+            <div class="m-4">
+                <input class="form-control" type="file" name="image">
+            </div>
+            <div class="m-4">
+                <div class="form-floating">
+                  <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="author">
+                    <option selected></option>
+                    <option value="{{form.author}}"></option>
+                  </select>
+                  <label for="floatingSelect">Works with selects</label>
+                </div>
+            </div>
+            <div class="mx-5">
+                <div class="mx-5">
+                <div class="row mx-5">
+                    <button type="submit" class="btn btn-dark">Create post</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </form>
 

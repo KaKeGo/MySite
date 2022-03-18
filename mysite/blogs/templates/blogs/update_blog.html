@@ -5,20 +5,48 @@
 {% block title %}{% endblock %}
 
 {% block content %}
+<style>
+    img{
+        width: 75%;
+        border-radius: 15px;
+    }
+    .b{
+        border-radius: 35px;
+    }
+</style>
 
 <div class="container mx-5 row">
     <div class="row row-cols-3">
         <div>
-            <a href="" class="btn btn-outline-dark mt-5 b mx-5">Back</a>
+            <a href="{% url 'blogs:blog' %}" class="btn btn-outline-dark mt-5 b mx-5">Back</a>
         </div>
     </div>
 </div>
 
 
-<form method="post" enctype="multipart/form-data">{% csrf_token %}
-<div class="form-control shadow p-4">
-    {{form.as_p}}
-    <button type="submit" class="btn btn-dark">Create post</button>
+<form class="p-4 mx-5" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <div class="form-control ">
+        <div class="mx-5 p-5">
+            <div class="m-4 text-center">
+                <h4><strong>Create blog</strong></h4>
+            </div>
+            <div class="m-4">
+                <input class="form-control" name="title" value="{{form.title.value}}">
+            </div>
+            <div class="m-4">
+                <textarea class="form-control" name="body">{{form.body.value}}</textarea>
+            </div>
+            <div class="m-4">
+                <input class="form-control" type="file" name="image" src="{{form.image}}">
+            </div>
+            <div class="mx-5">
+                <div class="mx-5">
+                <div class="row mx-5">
+                    <button type="submit" class="btn btn-dark">Create post</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </form>
 
