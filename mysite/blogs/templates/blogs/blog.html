@@ -9,7 +9,7 @@
 <hr/>
 <div>
     {% for blog in object_list %}
-        <h6>{{blog.title}} | {{blog.author}}<a class="mx-5 btn btn-dark btn-sm" href="">Check</a></h6>
+        <h6>{{blog.title}} | {{blog.author}}<a class="mx-5 btn btn-secondary btn-sm" href="{{blog.get_absolute_url}}">Check</a></h6>
         <hr/>
         <small>{{blog.body}}</small>
         <hr/>
