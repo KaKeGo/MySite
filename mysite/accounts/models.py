@@ -34,8 +34,8 @@ class AccountManager(BaseUserManager):
 class CustomUser(AbstractBaseUser):
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(max_length=50, unique=True)
-    first_name = models.CharField(max_length=30, blank=True, null=True)
-    last_name = models.CharField(max_length=30, blank=True, null=True)
+    first_name = models.CharField(max_length=30, blank=True, null=True, default='')
+    last_name = models.CharField(max_length=30, blank=True, null=True, default=' ')
     date_joined = models.DateTimeField(auto_now_add=True)
     is_superuser = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)

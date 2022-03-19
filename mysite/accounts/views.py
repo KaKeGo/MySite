@@ -6,6 +6,12 @@ from .models import CustomUser
 # Create your views here.
 
 
-class ProfileView(generic.ListView):
-    template_name = 'accounts/profile.html'
-    model = CustomUser
+def user_profile_view(request):
+    template = 'accounts/profile.html'
+
+    profile = CustomUser.objects.all()
+
+    context = {
+        'profiles': profile
+    }
+    return render(request, template, context)

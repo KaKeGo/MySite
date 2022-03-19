@@ -1,12 +1,12 @@
 from django.urls import path, include
 
 from .views import (
-    ProfileView,
+    user_profile_view,
 )
 
 
 app_name = 'accounts'
 
 urlpatterns = [
-    path('profile/', ProfileView.as_view(), name='profile'),
+    path('profile/', user_profile_view, name='profile'),
 ]

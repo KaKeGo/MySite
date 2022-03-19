@@ -5,5 +5,63 @@
 {% block title %}{% endblock %}
 
 {% block content %}
+<style>
+    .b{
+        border-radius: 15px;
+    }
+</style>
+
+
+<div class="container mt-5">
+  <div class="row align-items-start">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="card shadow-lg b">
+          <div class="card-title text-center mt-4">
+              <strong>
+                  {% if request.user.is_authenticated %}
+                  <h2>{{request.user.username}} - profile</h2>
+                  {% else %}
+                  <h4>You are not authenticated</h4>
+                  {% endif %}
+              </strong>
+          </div>
+          <hr/>
+          <div class="card-body mt-3">
+              {% if request.user.is_authenticated %}
+              <div class="form-floating mx-5">
+                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.username}}" readonly>
+                  <label for="floatingInput">Username</label>
+              </div>
+              <div class="form-floating mx-5 mt-2">
+                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.email}}" readonly>
+                  <label for="floatingInput">Email</label>
+              </div>
+              <div class="form-floating mx-5 mt-2">
+                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.first_name}}" readonly>
+                  <label for="floatingInput">First name</label>
+              </div>
+              <div class="form-floating mx-5 mt-2 mb-5">
+                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.first_name}}" readonly>
+                  <label for="floatingInput">Last name</label>
+              </div>
+              <div class="mx-5">
+                  <div class="card-footer text-center mx-5 row mb-3">
+                      <a class="btn btn-success btn-lg mt-3">Update account info</a>
+                  </div>
+              </div>
+              <div class="mx-5">
+                  <div class="card-footer text-center mx-5 row mb-3">
+                      <a class="btn btn-danger btn-lg mt-3">Change password</a>
+                  </div>
+              </div>
+              {% endif %}
+          </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+</div>
 
 {% endblock %}
