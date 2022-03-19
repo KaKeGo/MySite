@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from .models import CustomUser
 from django.contrib.auth.models import auth
 
-from .forms import UserCreationForm
+from .forms import UserCreationForm, UserUpdateForm
 # Create your views here.
 
 
@@ -54,3 +54,13 @@ def login_user_view(request):
 def logout_view(request):
     auth.logout(request)
     return redirect('blogs:blog')
+
+def update_profile_view(request):
+    templates = 'accounts/update_profile.html'
+
+    form = UserUpdateForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, templates, context)

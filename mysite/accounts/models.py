@@ -38,6 +38,7 @@ class CustomUser(AbstractBaseUser):
     last_name = models.CharField(max_length=30, blank=True, null=True, default='update')
     avatar = models.ImageField(upload_to='avatars', default='images/logo.png')
     date_joined = models.DateTimeField(auto_now_add=True)
+    regimen = models.BooleanField()
     is_superuser = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

@@ -12,12 +12,20 @@ class UserCreationForm(CreateUser):
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email', 'password1', 'password2', 'regimen')
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
         user.username = self.cleaned_data['username']
         user.email = self.cleaned_data['email']
+        user.regimen = self.cleaned_data['regimen']
         if commit:
             user.save()
         return user
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'first_name', 'last_name')
