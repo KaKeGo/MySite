@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from django.urls import reverse_lazy
 from .models import CustomUser
+from django.contrib.auth.models import auth
 
 from .forms import UserCreationForm
 # Create your views here.
@@ -31,3 +32,25 @@ def sign_up_view(request):
         'form': form,
     }
     return render(request, template, context)
+
+def login_user_view(request):
+    template = 'accounts/signin.html'
+
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = auth.authenticate(email=email, password=password)
+
+        if user is not None:
+            auth.login(request,user)
+            return redirect('blogs:blog')
+        else:
+            return render('accounts:login')
+    else:
+        context = {}
+        return render(request, template, context)
+
+def logout_view(request):
+    auth.logout(request)
+    return redirect('blogs:blog')
