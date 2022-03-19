@@ -11,16 +11,17 @@ from .forms import BlogCreateForm, BlogUpdateForm
 class BlogView(generic.ListView):
     template_name = 'blogs/blog.html'
     model = Blog
+    context_object_name = 'blogs'
 
 class BlogDetailView(generic.DetailView):
     template_name = 'blogs/detail_blog.html'
     model = Blog
+    context_object_name = 'blogs'
 
 class BlogCreateView(generic.CreateView):
     template_name = 'blogs/create_blog.html'
     model = Blog
     form_class = BlogCreateForm
-    # context_object_name = 'blogs'
 
 class BlogUpdateView(generic.UpdateView):
     template_name = 'blogs/update_blog.html'
