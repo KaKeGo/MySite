@@ -25,7 +25,6 @@
           </div>
           <hr/>
           <form class="card-body mt-3" method="post">{% csrf_token %}
-              {% if request.user.is_authenticated %}
               <div class="form-floating mx-5">
                   <input class="form-control border-dark" id="floatingInput"
                             autofocus name="username" type="text" maxlength="30">
@@ -51,7 +50,6 @@
                       <button class="btn btn-success btn-lg mt-3" type="submit">Create account</button>
                   </div>
               </div>
-              {% endif %}
           </form>
       </div>
     </div>

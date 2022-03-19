@@ -23,18 +23,21 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
         </li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link  mx-2" href="{% url 'blogs:blog' %}">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  mx-2" href="{% url 'accounts:logout' %}">logout</a>
+        </li>
+        {% else %}
         <li class="nav-item">
           <a class="nav-link  mx-2" href="{% url 'accounts:sign_in' %}">Sign in</a>
         </li>
         <li class="nav-item">
           <a class="nav-link  mx-2" href="{% url 'accounts:sign_up' %}">Sign up</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link  mx-2" href="{% url 'accounts:logout' %}">logout</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link  mx-2" href="{% url 'blogs:blog' %}">Blog</a>
-        </li>
+        {% endif %}
       </ul>
       {% if request.user.is_authenticated %}
       <div class="btn-group dropstart">
