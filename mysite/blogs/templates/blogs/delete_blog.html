@@ -1,0 +1,34 @@
+{% extends 'master.html' %}
+
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+<div class="container mx-5 row">
+    <div class="row row-cols-3">
+        <div>
+            <a href="{% url 'blogs:blog' %}" class="btn btn-outline-dark mt-5 b mx-5">Back</a>
+        </div>
+    </div>
+</div>
+
+<div class="container p-5">
+    <div class="form-control shadow-lg rounded">
+        <div class="p-4">
+            <div class="text-center p-3">
+                <h1 class="mt-2">Your want to delete this blog?</h1>
+            </div>
+            <hr/>
+            <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                <div class="text-center mt-4">
+                    <button class="btn btn-danger btn-lg mx-5" type="submit">Yes</button>
+                    <a class="btn btn-dark btn-lg mx-5" href="{% url 'blogs:blog' %}">No</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
