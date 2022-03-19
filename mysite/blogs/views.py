@@ -20,8 +20,14 @@ class BlogCreateView(generic.CreateView):
     template_name = 'blogs/create_blog.html'
     model = Blog
     form_class = BlogCreateForm
+    # context_object_name = 'blogs'
 
 class BlogUpdateView(generic.UpdateView):
     template_name = 'blogs/update_blog.html'
     model = Blog
     form_class = BlogUpdateForm
+
+class BlogDeleteView(generic.DeleteView):
+    template_name = 'blogs/delete_blog.html'
+    model = Blog
+    success_url = reverse_lazy('blogs:blog')
