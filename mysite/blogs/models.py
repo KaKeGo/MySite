@@ -1,7 +1,7 @@
 from django.db import models
 from django.shortcuts import reverse
 from django.template.defaultfilters import slugify
-from django.contrib.auth.models import User
+from accounts.models import CustomUser
 
 # Create your models here.
 
@@ -10,7 +10,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=50, null=True, blank=True)
     body = models.TextField()
     image = models.ImageField(upload_to='blog_images', blank=True, null=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, blank=True, null=True)
     create_on = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     update_on = models.DateTimeField(auto_now=True, blank=True, null=True)
