@@ -22,17 +22,16 @@
           <a class="nav-link  mx-2" href="{% url 'blogs:blog' %}">Blog</a>
         </li>
       </ul>
-        <li class="nav-item dropdown d-flex">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
+      {% if request.user.is_authenticated %}
+      <div class="btn-group dropstart">
+        <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          {{request.user.username}}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <li><button class="dropdown-item" type="button">Profile</button></li>
+        </ul>
+      </div>
+      {% endif %}
     </div>
   </div>
 </nav>
