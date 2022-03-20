@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     #Myapps
     'blogs',
     'accounts',
+    'contacts',
 
     'crispy_forms',
 ]
