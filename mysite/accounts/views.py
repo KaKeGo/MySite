@@ -58,8 +58,13 @@ def logout_view(request):
 def update_profile_view(request):
     templates = 'accounts/update_profile.html'
 
-    form = UserUpdateForm()
-
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:profile')
+    else:
+        form = UserUpdateForm(instance=request.user)
     context = {
         'form': form,
     }

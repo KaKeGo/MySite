@@ -24,7 +24,6 @@ class UserCreationForm(CreateUser):
         return user
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField(required=True)
 
     class Meta:
         model = CustomUser

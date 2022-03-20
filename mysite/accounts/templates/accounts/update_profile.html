@@ -1,6 +1,7 @@
 {% extends 'master.html' %}
 
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}{% endblock %}
 
@@ -18,25 +19,15 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
       <div class="card shadow-lg b">
-          <div class="card-title text-center mt-4">
-              <strong>
-                  <h2>Update profile</h2>
+          <div class="card-title text-center mt-4 row">
+              <strong class="display-row">
+                  <a class="btn btn-dark btn-small mb-3" href="{% url 'accounts:profile' %}">Back</a>
+                  <h2 class="">Update profile</h2>
               </strong>
           </div>
           <hr/>
           <form class="card-body mt-3" method="post">{% csrf_token %}
-              <div class="form-floating mx-5">
-                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.username}}">
-                  <label for="floatingInput">Username</label>
-              </div>
-              <div class="form-floating mx-5 mt-2">
-                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.first_name}}">
-                  <label for="floatingInput">First name</label>
-              </div>
-              <div class="form-floating mx-5 mt-2 mb-5">
-                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.last_name}}">
-                  <label for="floatingInput">Last name</label>
-              </div>
+              {{form.as_p}}
               <div class="mx-5">
                   <div class="card-footer text-center mx-5 row mb-3">
                       <button class="btn btn-success btn-lg mt-3" type="submit">Update</button>

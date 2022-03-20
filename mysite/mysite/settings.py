@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     #Myapps
     'blogs',
     'accounts',
+
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
