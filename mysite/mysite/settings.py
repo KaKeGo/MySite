@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Application definition
 
@@ -41,6 +42,9 @@ INSTALLED_APPS = [
 
     #Myapps
     'blogs',
+    'accounts',
+
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
