@@ -2,6 +2,8 @@ from django.db import models
 from django.shortcuts import reverse
 from django.template.defaultfilters import slugify
 
+from accounts.models import CustomUser
+
 # Create your models here.
 
 
@@ -19,6 +21,7 @@ class Contact(models.Model):
 class ContactMessage(models.Model):
     name = models.CharField(max_length=30, blank=True, null=True)
     body = models.TextField()
+    postman = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
     create_on = models.DateTimeField(auto_now_add=True)
     update_on = models.DateTimeField(auto_now=True)
