@@ -28,7 +28,13 @@
           <a class="nav-link  mx-2" href="{% url 'blogs:blog' %}">Blog</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  mx-2" href="{% url 'accounts:logout' %}">logout</a>
+          <a class="nav-link  mx-2" href="{% url 'blogs:blog' %}">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  mx-2" href="{% url 'blogs:blog' %}">About me</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  mx-2" href="{% url 'accounts:logout' %}">Logout</a>
         </li>
         {% else %}
         <li class="nav-item">
