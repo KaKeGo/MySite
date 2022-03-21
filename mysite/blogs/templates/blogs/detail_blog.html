@@ -15,21 +15,22 @@
     }
 </style>
 
-{% if user.is_admin %}
 <div class="container mx-5 row">
     <div class="row row-cols-3">
         <div>
             <a href="{% url 'blogs:blog' %}" class="btn btn-outline-dark mt-5 b mx-5">Back</a>
         </div>
+        {% if user.is_admin %}
         <div>
             <a href="{% url 'blogs:update' blogs.slug %}" class="btn btn-outline-success mt-5 b mx-5">Update</a>
         </div>
         <div>
             <a href="{% url 'blogs:delete' blogs.slug %}" class="btn btn-outline-danger mt-5 b mx-5">Delete</a>
         </div>
+        {% endif %}
     </div>
 </div>
-{% endif %}
+
 
 <div class="container p-5">
     <div class="form-control shadow-lg rounded">

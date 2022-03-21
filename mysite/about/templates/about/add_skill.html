@@ -20,27 +20,24 @@
       <div class="card shadow-lg b">
           <div class="card-title text-center mt-4">
               <strong>
-                  <h2>Sign up</h2>
+                  <h3>Add skill</h3>
               </strong>
           </div>
           <hr/>
-          <form class="card-body mt-3" method="post">{% csrf_token %}
+          <form class="card-body mt-2" method="post">{% csrf_token %}
               <div class="form-floating mx-5 mt-2 col-6 mx-auto">
                   <input class="form-control border-dark" id="floatingInput"
-                            type="email" name="email" maxlength="30">
-                  <label for="floatingInput">Email</label>
+                            type="text" name="title" maxlength="30">
+                  <label for="floatingInput">Name</label>
               </div>
               <div class="form-floating mx-5 mt-2 col-6 mx-auto">
                   <input class="form-control border-dark" id="floatingInput"
-                            maxlength="30" type="password" name="password">
-                  <label for="floatingInput">Password</label>
+                            maxlength="30" type="number" name="score">
+                  <label for="floatingInput">Score</label>
               </div>
               <div class="mx-5">
                   <div class="card-footer row mb-3 d-grip gap-2 col-6 mx-auto">
-                      <button class="btn btn-outline-primary btn-lg mt-3" type="submit">Sign in</button>
-                  </div>
-                  <div class="text-center">
-                      Forgot a password click <a href="{% url 'reset-password' %}">here</a>
+                      <button class="btn btn-outline-primary btn-lg mt-3" type="submit">Add skill</button>
                   </div>
               </div>
           </form>
