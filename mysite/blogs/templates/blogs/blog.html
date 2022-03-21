@@ -49,10 +49,8 @@
             <div class="mx-5">
                 <p class="card-text">{{blog.body|truncatechars:180}}</p>
             </div>
-            <div class="mt-4 mx-5">
-                <div class="row mx-5 ">
-                    <a href="{{blog.get_absolute_url}}" class="btn btn-primary b">Check</a>
-                </div>
+            <div class="d-grip gap-2 col-6 mx-auto row mt-3">
+                <a href="{{blog.get_absolute_url}}" class="btn btn-outline-primary b">Check</a>
             </div>
             <div class="card-footer text-muted text-center mt-3">
                 <strong>Author: {{blog.author}} Create: {{blog.create_on}}</strong>

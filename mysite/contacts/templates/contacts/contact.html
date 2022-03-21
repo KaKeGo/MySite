@@ -48,9 +48,15 @@
                 <p class="card-text">{{contact.body}}</p>
             </div>
             <hr/>
-            <div class="card-text text-center mt-3">
-              <h6>If u want to contact with me:</h6><a class="btn btn-success" href="{% url 'contacts:message' %}">click</a>
-            </div>
+              {% if user.is_authenticated %}
+                <div class="card-text col-6 mx-auto mt-3 row text-center mb-3">
+                  <h6>If u want to contact with me:</h6><a class="btn btn-outline-primary" href="{% url 'contacts:message' %}">click</a>
+                </div>
+              {% else %}
+                <div class="card-text col-6 mx-auto mt-3 text-center mb-3">
+                  <h6>If u want to contact with me:</h6><a class="btn btn-outline-primary disabled" disabled="">click</a>
+                </div>
+              {% endif %}
           </div>
         </div>
         </div>

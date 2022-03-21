@@ -19,19 +19,17 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
       <div class="card shadow-lg b">
-          <div class="card-title text-center mt-4 row">
-              <strong class="display-row">
-                  <a class="btn btn-dark btn-small mb-3" href="{% url 'accounts:profile' %}">Back</a>
-                  <h2 class="">Update profile</h2>
+          <div class="card-title text-center mt-4 row col">
+              <strong>
+                  <a class="btn btn-outline-dark btn-small mb-3" href="{% url 'accounts:profile' %}">Back</a>
+                  <h2>Update profile</h2>
               </strong>
           </div>
           <hr/>
           <form class="card-body mt-3" method="post">{% csrf_token %}
               {{form.as_p}}
-              <div class="mx-5">
-                  <div class="card-footer text-center mx-5 row mb-3">
-                      <button class="btn btn-success btn-lg mt-3" type="submit">Update</button>
-                  </div>
+              <div class="card-footer col-6 mx-auto row mb-3">
+                  <button class="btn btn-outline-primary btn-lg mt-3" type="submit">Update</button>
               </div>
           </form>
       </div>
