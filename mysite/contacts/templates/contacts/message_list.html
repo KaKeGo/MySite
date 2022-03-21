@@ -35,7 +35,7 @@
       <td>{{message.is_active}}</td>
       <td>
         <a class="btn btn-sm btn-primary" href="{% url 'contacts:detail' message.slug %}">Check</a>
-        <a class="btn btn-sm btn-danger" href="{% url 'contacts:detail' message.slug %}">Delete</a>
+        <a class="btn btn-sm btn-danger" href="{% url 'contacts:delete' message.slug %}">Delete</a>
       </td>
     </tr>
   {% endfor %}
