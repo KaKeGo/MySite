@@ -1,0 +1,63 @@
+{% extends 'master.html' %}
+
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<style>
+    img{
+        width: 75%;
+        border-radius: 15px;
+    }
+    .b{
+        border-radius: 15px;
+    }
+    .card{
+        border-radius: 40px;
+    }
+</style>
+
+{% if user.is_admin %}
+<div class="container mx-2 row">
+    <div class="row row-cols-3">
+        <div>
+        </div>
+        <div class="text-center">
+            <a href="{% url 'contacts:list' %}" class="btn btn-outline-dark mt-5 b ">List of messages</a>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% for contact in contacts %}
+<div class="container mt-5">
+  <div class="row align-items-start">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="card shadow-lg b">
+        <div class="card-header mt-3"></div>
+          <div class="card-body">
+            <div class="text-center">
+                <h5 class="card-title">{{contact.title}}</h5>
+            </div>
+            <hr/>
+            <div class="mx-5">
+                <p class="card-text">{{contact.body}}</p>
+            </div>
+            <hr/>
+            <div class="card-text text-center mt-3">
+              <h6>If u want to contact with me:</h6><a class="btn btn-success" href="{% url 'contacts:message' %}">click</a>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

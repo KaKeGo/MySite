@@ -21,7 +21,7 @@ class Contact(models.Model):
 class ContactMessage(models.Model):
     name = models.CharField(max_length=30, blank=True, null=True)
     body = models.TextField()
-    postman = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    postman = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
     slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
     create_on = models.DateTimeField(auto_now_add=True)
     update_on = models.DateTimeField(auto_now=True)

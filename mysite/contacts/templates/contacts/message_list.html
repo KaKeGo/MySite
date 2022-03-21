@@ -1,0 +1,38 @@
+{% extends 'master.html' %}
+
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+
+
+<table class="table mt-5 shadow">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Postman</th>
+      <th scope="col">Create_on</th>
+      <th scope="col">Is_active</th>
+      <th scope="col">Activity</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for message in messages %}
+    <tr>
+      <th scope="row">{{message.pk}}</th>
+      <td>{{message.name}}</td>
+      <td>{{message.postman}}</td>
+      <td>{{message.create_on}}</td>
+      <td>{{message.is_active}}</td>
+      <td>
+        <a class="btn btn-sm btn-primary" href="">Check</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
