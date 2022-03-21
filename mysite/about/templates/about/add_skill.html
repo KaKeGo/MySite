@@ -1,0 +1,14 @@
+{% extends 'master.html' %}
+
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+<form method="post">{% csrf_token %}
+    {{form}}
+    <button type="submit">Add</button>
+</form>
+
+{% endblock %}

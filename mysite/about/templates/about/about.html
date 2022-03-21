@@ -24,6 +24,7 @@
         <h3><strong>About my self</strong></h3>
       </div>
       <hr/>
+      <!-- About -->
       {% for about in abouts %}
       <div class="p-5 row card-title">
         <div class="col-md-4 mx-2">
@@ -39,10 +40,12 @@
         <div class="row">
           <div class="col-sm-3">
             <h4 class="mx-5 ">My skills:</h4>
-
+          <!-- Skills -->
           </div>
           <div class="col-sm-3">
-            <a class="btn btn-success">Add skill</a>
+            {% if user.is_admin %}
+            <a class="btn btn-success" href="{% url 'about:add_skill' %}">Add skill</a>
+            {% endif %}
           </div>
         </div>
         {% for skill in about.skills.all %}
