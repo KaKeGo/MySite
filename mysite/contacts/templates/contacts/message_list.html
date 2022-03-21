@@ -6,7 +6,13 @@
 
 {% block content %}
 
-
+<div class="container mx-5 row">
+    <div class="row row-cols-3">
+        <div>
+            <a href="{% url 'contacts:contact' %}" class="btn btn-outline-dark mt-5 b mx-5">Back</a>
+        </div>
+    </div>
+</div>
 
 <table class="table mt-5 shadow">
   <thead>
@@ -28,7 +34,8 @@
       <td>{{message.create_on}}</td>
       <td>{{message.is_active}}</td>
       <td>
-        <a class="btn btn-sm btn-primary" href="">Check</a>
+        <a class="btn btn-sm btn-primary" href="{% url 'contacts:detail' message.slug %}">Check</a>
+        <a class="btn btn-sm btn-danger" href="{% url 'contacts:detail' message.slug %}">Delete</a>
       </td>
     </tr>
   {% endfor %}

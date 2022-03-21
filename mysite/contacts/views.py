@@ -23,3 +23,8 @@ class ContactMessageCreate(generic.CreateView):
     form_class = ContactMessageForm
     context_object_name = 'messages'
     success_url = reverse_lazy('contacts:contact')
+
+class ContactMessageDetail(generic.DetailView):
+    template_name = 'contacts/message_detail.html'
+    model = ContactMessage
+    context_object_name = 'messages'

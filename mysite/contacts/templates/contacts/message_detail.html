@@ -1,0 +1,47 @@
+{% extends 'master.html' %}
+
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+<div class="container mx-5 row">
+    <div class="row row-cols-3">
+        <div>
+            <a class="mt-5 b mx-5"></a>
+        </div>
+        <div>
+            <a href="{% url 'contacts:list' %}" class="btn btn-outline-dark mt-5 b mx-5">Messages list</a>
+        </div>
+        <div>
+            <a class="mt-5 b mx-5"></a>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+  <div class="row align-items-start">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="card shadow-lg b">
+          <div class="card-body">
+            <div class="text-center">
+                <h5 class="card-title">{{messages.name}}</h5>
+            </div>
+            <hr/>
+            <div class="mx-5">
+                <p class="card-text">{{messages.body}}</p>
+            </div>
+            <div class="card-footer text-muted text-center mt-3">
+                <strong>Send by: {{messages.postman}} / {{messages.postman.email}}</strong>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+
+{% endblock %}
