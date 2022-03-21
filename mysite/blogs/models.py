@@ -7,7 +7,7 @@ from accounts.models import CustomUser
 
 
 class Blog(models.Model):
-    title = models.CharField(max_length=50, null=True, blank=True)
+    title = models.CharField(max_length=255, null=True, blank=True)
     body = models.TextField()
     image = models.ImageField(upload_to='blog_images', blank=True, null=True)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

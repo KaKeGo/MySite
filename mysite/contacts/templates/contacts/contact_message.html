@@ -36,12 +36,12 @@
           <form class="card-body mt-3" method="post">{% csrf_token %}
               <div class="form-floating mx-5">
                   <input class="form-control border-dark" id="floatingInput"
-                             name="name" type="text" maxlength="30">
+                             name="name" type="text" maxlength="255">
                   <label for="floatingInput">Name</label>
               </div>
               <div class="form-floating mx-5 mt-2">
                   <textarea class="form-control border-dark" id="floatingInput"
-                            type="text" name="body" maxlength="30" style="height: 300px;"></textarea>
+                            type="text" name="body" style="height: 300px;"></textarea>
                   <label for="floatingInput">Your question</label>
               </div>
               <div class="mx-5">
