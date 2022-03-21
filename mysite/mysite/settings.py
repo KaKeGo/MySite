@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     #Myapps
     'blogs',
     'accounts',
+    'contacts',
 
     'crispy_forms',
 ]
@@ -140,3 +141,7 @@ MEDIA_ROOT = BASE_DIR / 'mediafiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+LOGIN_REDIRECT_URL = 'accounts:sign_in'
+
+LOGIN_URL = 'accounts:sign_in'

@@ -3,11 +3,12 @@ from django.views import generic
 from django.urls import reverse_lazy
 from .models import CustomUser
 from django.contrib.auth.models import auth
+from django.contrib.auth.decorators import login_required
 
 from .forms import UserCreationForm, UserUpdateForm
 # Create your views here.
 
-
+@login_required
 def user_profile_view(request):
     template = 'accounts/profile.html'
 
@@ -55,6 +56,7 @@ def logout_view(request):
     auth.logout(request)
     return redirect('blogs:blog')
 
+@login_required
 def update_profile_view(request):
     templates = 'accounts/update_profile.html'
 
