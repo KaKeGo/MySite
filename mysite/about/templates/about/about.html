@@ -5,5 +5,63 @@
 {% block title %}{% endblock %}
 
 {% block content %}
+<style>
+    .b{
+      border-radius: 25px;
+    }
+    .imge{
+      width: 100%;
+      border-radius: 50%;
+    }
+</style>
+
+
+<div class="container mt-5">
+  <div class="row align-items-start">
+    <div class="col-md-1"></div>
+    <div class="card col-md-10 b shadow-lg">
+      <div class="text-center mt-3 ">
+        <h3><strong>About my self</strong></h3>
+      </div>
+      <hr/>
+      {% for about in abouts %}
+      <div class="p-5 row card-title">
+        <div class="col-md-4 mx-2">
+          <img class="imge mt-4 mb-4" src="{{about.avatar.url}}">
+        </div>
+        <div class="col-md-7">
+          <h4 class="p-4">{{about.name}}</h4>
+          <div class="p-4">{{about.description}}</div>
+        </div>
+      </div>
+      <hr/>
+      <div class="p-5 row">
+        <div class="row">
+          <div class="col-sm-3">
+            <h4 class="mx-5 ">My skills:</h4>
+
+          </div>
+          <div class="col-sm-3">
+            <a class="btn btn-success">Add skill</a>
+          </div>
+        </div>
+        {% for skill in about.skills.all %}
+        <div class="col-sm-5 m-3">
+          {{skill.title}}
+          <div class="m-2">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 15%"
+                   aria-valuenow="{{skill.score}}" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+      <hr/>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
 
 {% endblock %}

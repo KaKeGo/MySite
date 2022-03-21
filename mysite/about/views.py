@@ -8,4 +8,4 @@ from .models import About
 class AboutView(generic.ListView):
     template_name = 'about/about.html'
     model = About
-    context_object_name = 'about'
+    context_object_name = 'abouts'
