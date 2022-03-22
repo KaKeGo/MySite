@@ -52,3 +52,19 @@ class BlogUpdateView(generic.UpdateView):
     template_name = 'blogs/update_blog.html'
     model = Blog
     form_class = BlogUpdateForm
+
+    def post(self, request, slug, *args, **kwargs):
+        template = 'blogs/update_blog.html'
+        blog = Blog.objects.get(slug=slug)
+        form = BlogUpdateForm()
+        if form.is_valid():
+            form.save()
+            return redirect(reverse_lazy('blogs:detail'))
+        else:
+            form = BlogCreateForm()
+        context = {
+            'update': update,
+            'blog': blog,
+        }
+        return render(request, template, context)
+
