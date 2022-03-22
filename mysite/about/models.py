@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Skills(models.Model):
-    title = models.CharField(max_length=20, null=True, blank=True)
+    title = models.CharField(max_length=30, null=True, blank=True)
     score = models.IntegerField(default=0, null=True, blank=True)
 
     class Meta:

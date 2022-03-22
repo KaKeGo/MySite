@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from django.urls import reverse_lazy
 
@@ -8,12 +8,20 @@ from .forms import SkillCreateForm
 
 
 class AboutView(generic.ListView):
-    template_name = 'about/about.html'
-    model = About
-    context_object_name = 'abouts'
+    def get(self, request, *args, **kwargs):
+        template = 'about/about.html'
+        abouts = About.objects.all()
+        context = {
+            'abouts': abouts,
+        }
+        return render(request, template, context)
 
-class SkillCreateView(generic.CreateView):
-    template_name = 'about/add_skill.html'
-    form_class = SkillCreateForm
-    model = Skills
-    success_url = reverse_lazy('about:about')
+    def post(self, request, *args, **kwargs):
+        if request.method == "POST":
+            form = SkillCreateForm(request.POST)
+            if form.is_valid():
+                form.save()
+        else:
+            form = SkillCreateForm()
+        return redirect('about:about')
+
