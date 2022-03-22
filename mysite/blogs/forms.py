@@ -12,3 +12,8 @@ class BlogUpdateForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = ('title', 'body', 'image')
+
+class BlogDeleteForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        fields = '__all__'

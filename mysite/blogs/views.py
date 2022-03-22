@@ -1,36 +1,39 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.urls import reverse_lazy
 
 from accounts.models import CustomUser
 from .models import Blog
-from .forms import BlogCreateForm, BlogUpdateForm
+from .forms import BlogCreateForm, BlogUpdateForm, BlogDeleteForm
 
 # Create your views here.
 
 
 class BlogView(generic.ListView):
-    def get(self, request, *args, **kwargs):
-        template = 'blogs/blog.html'
+    template_name = 'blogs/blog.html'
+    model = Blog
+    context_object_name = 'blogs'
+    paginate_by = 3
 
-        blog = Blog.objects.all()
-
-        context = {
-            'blogs': blog
-        }
-        return render(request, template, context)
 
 class BlogDetailView(generic.DetailView):
     template_name = 'blogs/detail_blog.html'
     model = Blog
     context_object_name = 'blogs'
 
-class BlogCreateView(generic.View):
+    def post(self, request, slug, *args, **kwargs):
+        blog = Blog.objects.get(slug=slug)
+        blog.delete()
+        return redirect(reverse_lazy('blogs:blog'))
+
+
+class BlogCreateView(generic.CreateView):
     def get(self, request, *args, **kwargs):
         template = 'blogs/create_blog.html'
         return render(request, template)
 
     def post(self, request, *args, **kwargs):
+        template = 'blogs/create_blog.html'
         if request.method == 'POST':
             form = BlogCreateForm(request.POST, request.FILES)
             if form.is_valid():
@@ -49,8 +52,3 @@ class BlogUpdateView(generic.UpdateView):
     template_name = 'blogs/update_blog.html'
     model = Blog
     form_class = BlogUpdateForm
-
-class BlogDeleteView(generic.DeleteView):
-    template_name = 'blogs/delete_blog.html'
-    model = Blog
-    success_url = reverse_lazy('blogs:blog')
