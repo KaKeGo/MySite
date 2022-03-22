@@ -6,6 +6,7 @@ from .views import (
     BlogDetailView,
     BlogCreateView,
     BlogUpdateView,
+    # update_blog_view,
 )
 
 
@@ -16,4 +17,5 @@ urlpatterns = [
     path('create/', login_required(BlogCreateView.as_view()), name='create'),
     path('detail/<slug:slug>/', BlogDetailView.as_view(), name='detail'),
     path('detail/<slug:slug>/update/', login_required(BlogUpdateView.as_view()), name='update'),
+    # path('detail/<slug:slug>/update/', update_blog_view, name='update'),
 ]

@@ -49,22 +49,48 @@ class BlogCreateView(generic.CreateView):
         return render(request, template, context)
 
 class BlogUpdateView(generic.UpdateView):
-    template_name = 'blogs/update_blog.html'
-    model = Blog
-    form_class = BlogUpdateForm
-
-    def post(self, request, slug, *args, **kwargs):
+    def get(self, request, slug, *args, **kwargs):
         template = 'blogs/update_blog.html'
         blog = Blog.objects.get(slug=slug)
-        form = BlogUpdateForm()
-        if form.is_valid():
-            form.save()
-            return redirect(reverse_lazy('blogs:detail'))
-        else:
-            form = BlogCreateForm()
+        form = BlogUpdateForm(
+            initial={
+                'title': blog.title,
+                'body': blog.body,
+                'image': blog.image,
+            }
+        )
         context = {
-            'update': update,
             'blog': blog,
+            'form': form,
         }
         return render(request, template, context)
 
+    def post(self, request, slug, *args, **kwargs):
+        blog = get_object_or_404(Blog, slug=slug)
+        if request.POST:
+            form = BlogUpdateForm(request.POST or None, request.FILES or None, instance=blog)
+            if form.is_valid():
+                form.save()
+                return redirect('blogs:detail', slug=slug)
+
+# def update_blog_view(request, slug):
+#     template = 'blogs/update_blog.html'
+#
+#     blog = get_object_or_404(Blog, slug=slug)
+#     if request.POST:
+#         form = BlogUpdateForm(request.POST or None, request.FILES or None, instance=blog)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('blogs:detail', slug=slug)
+#     form = BlogUpdateForm(
+#         initial={
+#             'title': blog.title,
+#             'body': blog.body,
+#             'image': blog.image,
+#         }
+#     )
+#     context = {
+#         'form': form,
+#         'blog': blog,
+#     }
+#     return render(request, template, context)
