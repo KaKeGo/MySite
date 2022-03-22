@@ -24,4 +24,3 @@ class AboutView(generic.ListView):
         else:
             form = SkillCreateForm()
         return redirect('about:about')
-
