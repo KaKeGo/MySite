@@ -6,9 +6,25 @@ from .models import Blog
 class BlogCreateForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ('title', 'body', 'image', 'author')
+        fields = ('title', 'body', 'image')
 
 class BlogUpdateForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = ('title', 'body', 'image')
+
+    def save(self, commit=True):
+        blog = self.instance
+        blog.title = self.cleaned_data['title']
+        blog.body = self.cleaned_data['body']
+        if self.cleaned_data['image']:
+            blog.image = self.cleaned_data['image']
+
+        if commit:
+            blog.save()
+        return blog
+
+class BlogDeleteForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        fields = '__all__'

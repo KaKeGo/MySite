@@ -20,9 +20,9 @@
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Postman</th>
+      <th scope="col">Email</th>
       <th scope="col">Create_on</th>
-      <th scope="col">Is_active</th>
-      <th scope="col">Activity</th>
+      <th scope="col">Check</th>
     </tr>
   </thead>
   <tbody>
@@ -31,11 +31,10 @@
       <th scope="row">{{message.pk}}</th>
       <td>{{message.name}}</td>
       <td>{{message.postman}}</td>
+      <td>{{message.postman.email}}</td>
       <td>{{message.create_on}}</td>
-      <td>{{message.is_active}}</td>
       <td>
-        <a class="btn btn-sm btn-primary" href="{% url 'contacts:detail' message.slug %}">Check</a>
-        <a class="btn btn-sm btn-danger" href="{% url 'contacts:delete' message.slug %}">Delete</a>
+        <a class="btn btn-sm btn-outline-primary" href="{% url 'contacts:detail' message.slug %}">Check</a>
       </td>
     </tr>
   {% endfor %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse_lazy
 from .models import CustomUser
@@ -71,3 +71,4 @@ def update_profile_view(request):
         'form': form,
     }
     return render(request, templates, context)
+
