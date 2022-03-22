@@ -25,16 +25,26 @@ class ContactsView(generic.ListView):
             return redirect(reverse_lazy('contacts:contact'))
 
 class ContactMessgesListView(generic.ListView):
-    template_name = 'contacts/message_list.html'
-    model = ContactMessage
-    context_object_name = 'messages'
+    def get_queryset(self):
+        qs = ContactMessage.objects.all()
+        if self.kwargs.get('slug'):
+            qs = qs.filter(tags__name=self.kwargs['slug'])
+        return qs
+
+    def get(self, request, *args, **kwargs):
+        templates = 'contacts/message_list.html'
+        message = ContactMessage.objects.all()
+        context = {
+            'messages': message
+        }
+        return render(request, templates, context)
 
 class ContactMessageDetailView(generic.DetailView):
     template_name = 'contacts/message_detail.html'
     model = ContactMessage
     context_object_name = 'messages'
 
-class ContactMessageDeleteView(generic.DeleteView):
-    template_name = 'contacts/message_delete.html'
-    model = ContactMessage
-    success_url = reverse_lazy('contacts:list')
+    def post(self, request, slug, *args, **kwargs):
+        message = ContactMessage.objects.get(slug=slug)
+        message.delete()
+        return redirect(reverse_lazy('contacts:list'))

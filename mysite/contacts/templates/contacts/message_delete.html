@@ -1,26 +1,14 @@
-{% extends 'master.html' %}
 
-{% load static %}
-
-{% block title %}{% endblock %}
-
-{% block content %}
-
-<div class="container p-5">
-    <div class="form-control shadow-lg rounded">
-        <div class="p-4">
-            <div class="text-center p-3">
-                <h1 class="mt-2">Your want to delete this message?</h1>
-            </div>
-            <hr/>
-            <form method="post" enctype="multipart/form-data">{% csrf_token %}
-                <div class="text-center mt-4">
-                    <button class="btn btn-danger btn-lg mx-5" type="submit">Yes</button>
-                    <a class="btn btn-dark btn-lg mx-5" href="{% url 'contacts:list' %}">No</a>
-                </div>
-            </form>
+<div class="container">
+        <div class="text-center">
+            <h4 class="mt-2">Delete this message?</h4>
         </div>
+        <hr/>
+        <form method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-danger mx-5" type="submit">Yes</button>
+                <a class="btn btn-outline-primary mx-5" href="{% url 'contacts:detail' messages.slug %}">No</a>
+            </div>
+        </form>
     </div>
 </div>
-
-{% endblock %}
