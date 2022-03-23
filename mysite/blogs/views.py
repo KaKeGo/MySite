@@ -26,6 +26,12 @@ class BlogDetailView(generic.DetailView):
         blog.delete()
         return redirect(reverse_lazy('blogs:blog'))
 
+    def get_context_data(self, *args, **kwargs):
+        category = Category.objects.all()
+        context = super(BlogView, self).get_context_data(*args, **kwargs)
+        context['category'] = category
+        return context
+
 def category_view(request, slug):
     template = 'blogs/category.html'
 
