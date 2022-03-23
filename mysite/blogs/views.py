@@ -15,6 +15,11 @@ class BlogView(generic.ListView):
     context_object_name = 'blogs'
     paginate_by = 3
 
+    def get_context_data(self, *args, **kwargs):
+        category = Category.objects.all()
+        context = super(BlogView, self).get_context_data(*args, **kwargs)
+        context['category'] = category
+        return context
 
 class BlogDetailView(generic.DetailView):
     template_name = 'blogs/detail_blog.html'
@@ -25,12 +30,6 @@ class BlogDetailView(generic.DetailView):
         blog = Blog.objects.get(slug=slug)
         blog.delete()
         return redirect(reverse_lazy('blogs:blog'))
-
-    def get_context_data(self, *args, **kwargs):
-        category = Category.objects.all()
-        context = super(BlogView, self).get_context_data(*args, **kwargs)
-        context['category'] = category
-        return context
 
 def category_view(request, slug):
     template = 'blogs/category.html'
