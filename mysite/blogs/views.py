@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 
 from accounts.models import CustomUser
 from .models import Blog, Category
-from .forms import BlogCreateForm, BlogUpdateForm, BlogDeleteForm
+from .forms import BlogCreateForm, BlogUpdateForm, BlogDeleteForm, CategoryCreateForm
 
 # Create your views here.
 
@@ -57,11 +57,15 @@ class BlogCreateView(generic.CreateView):
         template = 'blogs/create_blog.html'
         if request.method == 'POST':
             form = BlogCreateForm(request.POST, request.FILES)
-            if form.is_valid():
-                obj = form.save(commit=False)
-                obj.author = self.request.user
-                obj.save()
-                return redirect('blogs:blog')
+            form2 = CategoryCreateForm(request.POST)
+            if form.is_valid() or form2.is_valid():
+                if form2:
+                    form2.save()
+                elif form:
+                    obj = form.save(commit=False)
+                    obj.author = self.request.user
+                    obj.save()
+                    return redirect('blogs:blog')
         else:
             form = BlogCreateForm()
         context = {
