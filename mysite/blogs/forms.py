@@ -1,12 +1,12 @@
 from django import forms
 
-from .models import Blog
+from .models import Blog, Category
 
 
 class BlogCreateForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ('title', 'body', 'image')
+        fields = ('title', 'body', 'image', 'category')
 
 class BlogUpdateForm(forms.ModelForm):
     class Meta:
@@ -28,3 +28,8 @@ class BlogDeleteForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = '__all__'
+
+class CategoryCreateForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('name',)

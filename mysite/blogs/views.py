@@ -3,8 +3,8 @@ from django.views import generic
 from django.urls import reverse_lazy
 
 from accounts.models import CustomUser
-from .models import Blog
-from .forms import BlogCreateForm, BlogUpdateForm, BlogDeleteForm
+from .models import Blog, Category
+from .forms import BlogCreateForm, BlogUpdateForm, BlogDeleteForm, CategoryCreateForm
 
 # Create your views here.
 
@@ -15,6 +15,11 @@ class BlogView(generic.ListView):
     context_object_name = 'blogs'
     paginate_by = 3
 
+    def get_context_data(self, *args, **kwargs):
+        category = Category.objects.all()
+        context = super(BlogView, self).get_context_data(*args, **kwargs)
+        context['category'] = category
+        return context
 
 class BlogDetailView(generic.DetailView):
     template_name = 'blogs/detail_blog.html'
@@ -26,21 +31,41 @@ class BlogDetailView(generic.DetailView):
         blog.delete()
         return redirect(reverse_lazy('blogs:blog'))
 
+def category_view(request, slug):
+    template = 'blogs/category.html'
+
+    blogs = Blog.objects.filter(category=slug)
+    category = Category.objects.all()
+
+    context = {
+        'slug': slug,
+        'blogs': blogs,
+        'category': category,
+    }
+    return render(request, template, context)
 
 class BlogCreateView(generic.CreateView):
     def get(self, request, *args, **kwargs):
         template = 'blogs/create_blog.html'
-        return render(request, template)
+        category = Category.objects.all()
+        context = {
+            'categories': category,
+        }
+        return render(request, template, context)
 
     def post(self, request, *args, **kwargs):
         template = 'blogs/create_blog.html'
         if request.method == 'POST':
             form = BlogCreateForm(request.POST, request.FILES)
-            if form.is_valid():
-                obj = form.save(commit=False)
-                obj.author = self.request.user
-                obj.save()
-                return redirect('blogs:blog')
+            form2 = CategoryCreateForm(request.POST)
+            if form.is_valid() or form2.is_valid():
+                if form2:
+                    form2.save()
+                elif form:
+                    obj = form.save(commit=False)
+                    obj.author = self.request.user
+                    obj.save()
+                    return redirect('blogs:blog')
         else:
             form = BlogCreateForm()
         context = {

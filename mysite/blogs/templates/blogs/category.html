@@ -18,21 +18,13 @@
     }
 </style>
 
-{% if user.is_admin %}
 <div class="container mx-5 row">
     <div class="row row-cols-3">
         <div>
-            <a class="mt-5 b mx-5"></a>
-        </div>
-        <div>
-            <a href="{% url 'blogs:create' %}" class="btn btn-outline-success mt-5 b mx-5">Create blog</a>
-        </div>
-        <div>
-            <a class="mt-5 b mx-5"></a>
+            <a href="{% url 'blogs:blog' %}" class="btn btn-outline-dark mt-5 b mx-5">Back</a>
         </div>
     </div>
 </div>
-{% endif %}
 
 
 <div class="container mt-5 mb-3">
