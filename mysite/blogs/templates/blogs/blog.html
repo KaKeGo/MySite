@@ -34,7 +34,7 @@
 </div>
 {% endif %}
 
-{% for blog in blogs %}
+
 <div class="container mt-5 mb-3">
   <div class="row align-items-start">
     <div class="col-md-2">
@@ -42,9 +42,10 @@
     </div>
     <div class="col-md-9">
       <div class="card shadow-lg b">
-        <div class="card-header mt-3"></div>
+          {% for blog in blogs %}
           <div class="card-body">
-            <div class="text-center">
+              <hr/>
+            <div class="text-center mt-2">
                 <h5 class="card-title">{{blog.title}}</h5>
             </div>
             <hr/>
@@ -58,13 +59,14 @@
                 <strong>Author: {{blog.author}} Create: {{blog.create_on}}</strong>
             </div>
           </div>
+          {% endfor %}
         </div>
         </div>
         </div>
     <div class="col-md-1"></div>
   </div>
 </div>
-{% endfor %}
+
 
 <div>
   <ul class="pagination justify-content-center">

@@ -3,7 +3,7 @@ from django.views import generic
 from django.urls import reverse_lazy
 
 from accounts.models import CustomUser
-from .models import Blog
+from .models import Blog, Category
 from .forms import BlogCreateForm, BlogUpdateForm, BlogDeleteForm
 
 # Create your views here.
@@ -47,7 +47,11 @@ def category_view(request, slug):
 class BlogCreateView(generic.CreateView):
     def get(self, request, *args, **kwargs):
         template = 'blogs/create_blog.html'
-        return render(request, template)
+        category = Category.objects.all()
+        context = {
+            'categories': category,
+        }
+        return render(request, template, context)
 
     def post(self, request, *args, **kwargs):
         template = 'blogs/create_blog.html'
