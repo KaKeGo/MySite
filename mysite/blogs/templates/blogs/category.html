@@ -27,22 +27,22 @@
 </div>
 
 
-<div class="container mt-5">
+<div class="container mt-5 mb-3">
   <div class="row align-items-start">
     <div class="col-md-2">
         {% include 'blogs/category_table.html' %}
     </div>
-      {% for blog in blogs %}
     <div class="col-md-9">
       <div class="card shadow-lg b">
-        <div class="card-header mt-3"></div>
+          {% for blog in blogs %}
           <div class="card-body">
-            <div class="text-center">
+              <hr/>
+            <div class="text-center mt-2">
                 <h5 class="card-title">{{blog.title}}</h5>
             </div>
             <hr/>
             <div class="mx-5">
-                <p class="card-text">{{blog.body|truncatechars:180|safe}}</p>
+                <p class="card-text">{{blog.body|truncatechars:180}}</p>
             </div>
             <div class="d-grip gap-2 col-6 mx-auto row mt-3">
                 <a href="{{blog.get_absolute_url}}" class="btn btn-outline-primary b">Check</a>
@@ -51,12 +51,32 @@
                 <strong>Author: {{blog.author}} Create: {{blog.create_on}}</strong>
             </div>
           </div>
+          {% endfor %}
         </div>
         </div>
         </div>
-    {% endfor %}
     <div class="col-md-1"></div>
   </div>
+</div>
+
+
+<div>
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+        {% if page_obj.has_previous %}
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+    </li>
+    <li class="page-item mt-2 m-1" style="color: cornflowerblue">
+         {{ page_request_var }} {{ page_obj.number }}
+    </li>
+
+    <li class="page-item">
+        {% if page_obj.has_next %}
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+    </li>
+  </ul>
 </div>
 
 {% endblock %}
