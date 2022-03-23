@@ -26,6 +26,18 @@ class BlogDetailView(generic.DetailView):
         blog.delete()
         return redirect(reverse_lazy('blogs:blog'))
 
+def category_view(request, slug):
+    template = 'blogs/category.html'
+
+    blogs = Blog.objects.filter(category=slug)
+    category = Category.objects.all()
+
+    context = {
+        'slug': slug,
+        'blogs': blogs,
+        'category': category,
+    }
+    return render(request, template, context)
 
 class BlogCreateView(generic.CreateView):
     def get(self, request, *args, **kwargs):
