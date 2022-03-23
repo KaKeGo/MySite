@@ -1,0 +1,30 @@
+
+<style>
+  .c{
+    text-decoration: None;
+  }
+  .c:hover{
+    color: green;
+  }
+  ul{
+    list-style-type: none;
+  }
+</style>
+
+<div>
+  <table class="table">
+    <thead>
+      <ul>
+        <li><strong>Category</strong></li>
+      </ul>
+    <div class="card"></div>
+    </thead>
+    <tbody>
+      <ul class="mt-3 mx-2">
+        {% for cat in category %}
+        <li class="card-title"><a href="{% url 'blogs:category' cat %}"><strong>{{cat.name}}</strong></a></li>
+        {% endfor %}
+      </ul>
+    </tbody>
+  </table>
+</div>
