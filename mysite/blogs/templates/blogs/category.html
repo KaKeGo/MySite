@@ -18,29 +18,22 @@
     }
 </style>
 
-{% if user.is_admin %}
 <div class="container mx-5 row">
     <div class="row row-cols-3">
         <div>
-            <a class="mt-5 b mx-5"></a>
-        </div>
-        <div>
-            <a href="{% url 'blogs:create' %}" class="btn btn-outline-success mt-5 b mx-5">Create blog</a>
-        </div>
-        <div>
-            <a class="mt-5 b mx-5"></a>
+            <a href="{% url 'blogs:blog' %}" class="btn btn-outline-dark mt-5 b mx-5">Back</a>
         </div>
     </div>
 </div>
-{% endif %}
 
-{% for blog in blogs %}
-<div class="container mt-5 mb-3">
+
+<div class="container mt-5">
   <div class="row align-items-start">
-    <div class="col-md-1">
+    <div class="col-md-2">
         {% include 'blogs/category_table.html' %}
     </div>
-    <div class="col-md-10">
+      {% for blog in blogs %}
+    <div class="col-md-9">
       <div class="card shadow-lg b">
         <div class="card-header mt-3"></div>
           <div class="card-body">
@@ -49,7 +42,7 @@
             </div>
             <hr/>
             <div class="mx-5">
-                <p class="card-text">{{blog.body|truncatechars:180}}</p>
+                <p class="card-text">{{blog.body|truncatechars:180|safe}}</p>
             </div>
             <div class="d-grip gap-2 col-6 mx-auto row mt-3">
                 <a href="{{blog.get_absolute_url}}" class="btn btn-outline-primary b">Check</a>
@@ -61,28 +54,9 @@
         </div>
         </div>
         </div>
+    {% endfor %}
     <div class="col-md-1"></div>
   </div>
-</div>
-{% endfor %}
-
-<div>
-  <ul class="pagination justify-content-center">
-    <li class="page-item">
-        {% if page_obj.has_previous %}
-        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-        {% endif %}
-    </li>
-    <li class="page-item mt-2 m-1" style="color: cornflowerblue">
-         {{ page_request_var }} {{ page_obj.number }}
-    </li>
-
-    <li class="page-item">
-        {% if page_obj.has_next %}
-      <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-        {% endif %}
-    </li>
-  </ul>
 </div>
 
 {% endblock %}
