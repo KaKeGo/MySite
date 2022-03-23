@@ -58,14 +58,14 @@ class BlogCreateView(generic.CreateView):
         if request.method == 'POST':
             form = BlogCreateForm(request.POST, request.FILES)
             form2 = CategoryCreateForm(request.POST)
-            if form.is_valid() or form2.is_valid():
-                if form2:
-                    form2.save()
-                elif form:
-                    obj = form.save(commit=False)
-                    obj.author = self.request.user
-                    obj.save()
-                    return redirect('blogs:blog')
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.author = self.request.user
+                obj.save()
+                return redirect('blogs:blog')
+            elif form2.is_valid():
+                form2.save()
+                return redirect('blogs:create')
         else:
             form = BlogCreateForm()
         context = {

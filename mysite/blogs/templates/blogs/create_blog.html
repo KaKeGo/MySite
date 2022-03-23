@@ -21,18 +21,18 @@
         </div>
         <div class="form-floating col-8 mx-auto">
             <input class="form-control border-dark" name="title" placeholder="Title"
-                        id="floatingInput" autofocus>
+                        id="floatingInput" autofocus required>
             <label for="floatingInput">Title</label>
         </div>
         <div class="m-4 form-floating col-12 mx-auto">
             <textarea class="form-control border-dark" name="body" rows="20" id="mytextarea"
-                        style="height: 400px"></textarea>
+                        style="height: 400px" required></textarea>
             <label for="floatingInput">Write about blog...</label>
         </div>
         <div class="row">
             <div class="m-4 col-2 mx-auto"></div>
             <div class="m-4 col-5 mx-auto">
-                <select class="form-select" aria-label="Default select example" name="category">
+                <select class="form-select" aria-label="Default select example" name="category" required>
                   <option selected>Category</option>
                     {% for category in categories %}
                   <option>{{category}}</option>
