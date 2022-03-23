@@ -18,7 +18,7 @@
           <form class="card-body" method="post">{% csrf_token %}
               <div class="form-floating mx-5 mt-2 col-8 mx-auto">
                   <input class="form-control border-dark" id="floatingInput"
-                            type="text" name="name" maxlength="30">
+                            type="text" name="name" minlength="2" maxlength="30" required>
                   <label for="floatingInput">Name</label>
               </div>
               <div class="mx-5">
