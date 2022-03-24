@@ -1,16 +1,28 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.urls import reverse_lazy
 from .models import CustomUser
 from django.contrib.auth.models import auth
 from django.contrib.auth.decorators import login_required
 
+from .models import Profile, CustomUser
 from .forms import UserCreationForm, UserUpdateForm
 # Create your views here.
 
+class ProfileView(generic.DetailView):
+    template_name = 'accounts/profile.html'
+    model = Profile
+
+    def get_context_data(self, *args, **kwargs):
+        user = Profile.objects.all()
+        context = super(ProfileView, self).get_context_data(*args, **kwargs)
+        profile = get_object_or_404(Profile, id=self.kwargs['pk'])
+        context['profile'] = profile
+        return context
+
 @login_required
 def user_profile_view(request):
-    template = 'accounts/profile.html'
+    template = 'accounts/profile1.html'
 
     profile = CustomUser.objects.all()
 
