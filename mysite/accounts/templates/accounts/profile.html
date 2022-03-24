@@ -15,7 +15,6 @@
     }
 </style>
 
-
 <div class="container mt-5">
   <div class="row align-items-start">
     <div class="col-md-2"></div>
@@ -36,25 +35,25 @@
           <hr/>
           <div class="card-body mt-3">
               {% if request.user.is_authenticated %}
-              <div class="form-floating col-6 mx-auto">
+              <div class="form-floating col-8 mx-auto">
                   <input class="form-control border-dark" id="floatingInput" value="{{profile.user.username}}" readonly>
                   <label for="floatingInput">Username</label>
               </div>
-              <div class="form-floating col-6 mx-auto mt-2">
+              <div class="form-floating col-8 mx-auto mt-2">
                   <input class="form-control border-dark" id="floatingInput" value="{{profile.user.email}}" readonly>
                   <label for="floatingInput">Email</label>
               </div>
-              <div class="form-floating col-6 mx-auto mt-2">
+              <div class="form-floating col-8 mx-auto mt-2">
                   <input class="form-control border-dark" id="floatingInput" value="{{profile.user.first_name}}" readonly>
                   <label for="floatingInput">First name</label>
               </div>
-              <div class="form-floating col-6 mx-auto mt-2 ">
+              <div class="form-floating col-8 mx-auto mt-2 ">
                   <input class="form-control border-dark" id="floatingInput" value="{{profile.user.last_name}}" readonly>
                   <label for="floatingInput">Last name</label>
               </div>
-              <div class="col-6 mx-auto mt-2">
+              <div class="col-4 mx-auto mt-6">
                   <strong>{{profile.user.date_joined}}</strong>
-              <div class="mx-5">
+              <div class="mx-5 col-12 mx-auto">
                   <div class="card-footer text-center col-sm-12 mx-auto row mb-3">
                       <a href="{% url 'accounts:profile_update' request.user.id %}" class="btn btn-outline-primary btn-lg mt-3">Update info</a>
                   </div>

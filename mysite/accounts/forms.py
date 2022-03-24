@@ -29,6 +29,18 @@ class UserUpdateForm(forms.ModelForm):
         fields = ('username', 'first_name', 'last_name')
 
 class ProfileUpdateForm(forms.ModelForm):
+    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
+        'class': 'form-control border-dark text-center'
+    }))
+    email = forms.EmailField(max_length=100, widget=forms.EmailInput(attrs={
+        'class': 'form-control border-dark text-center'
+    }))
+    first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
+        'class': 'form-control border-dark text-center'
+    }))
+    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
+        'class': 'form-control border-dark text-center'
+    }))
 
     class Meta:
         model = CustomUser
