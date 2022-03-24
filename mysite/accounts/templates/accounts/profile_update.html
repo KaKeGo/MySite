@@ -33,10 +33,12 @@
           <hr/>
           <div class="card-body mt-3">
               {% if request.user.is_authenticated %}
-                  <div class="card-footer text-center col-sm-12 mx-auto row mb-3">
+                  <form class="card-footer text-center col-sm-12 mx-auto row mb-3"
+                        method="post">
+                      {% csrf_token %}
                       {{form.as_p}}
                       <button type="submit" class="btn btn-outline-primary btn-lg mt-3">Update info</button>
-                  </div>
+                  </form>
               </div>
               {% endif %}
           </div>

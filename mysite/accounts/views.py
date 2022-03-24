@@ -20,9 +20,10 @@ class ProfileView(generic.DetailView):
         return context
 
 class ProfileUpdateView(generic.UpdateView):
+    model = Profile
     template_name = 'accounts/profile_update.html'
     form_class = ProfileUpdateForm
-    success_url = reverse_lazy('accounts:profile')
+    success_url = reverse_lazy('accounts:profile_update')
 
     def get_object(self):
         return self.request.user
