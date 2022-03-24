@@ -54,7 +54,6 @@ class BlogCreateView(generic.CreateView):
         return render(request, template, context)
 
     def post(self, request, *args, **kwargs):
-        template = 'blogs/create_blog.html'
         if request.method == 'POST':
             form = BlogCreateForm(request.POST, request.FILES)
             form2 = CategoryCreateForm(request.POST)
@@ -66,12 +65,6 @@ class BlogCreateView(generic.CreateView):
             elif form2.is_valid():
                 form2.save()
                 return redirect('blogs:create')
-        else:
-            form = BlogCreateForm()
-        context = {
-            'form': form,
-        }
-        return render(request, template, context)
 
 class BlogUpdateView(generic.UpdateView):
     def get(self, request, slug, *args, **kwargs):

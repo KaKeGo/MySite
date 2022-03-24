@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import CustomUser
+from .models import CustomUser, Profile
 # Register your models here.
 
 @admin.register(CustomUser)
@@ -14,3 +14,7 @@ class UserAdmin(admin.ModelAdmin):
         ('Personal', {'fields': ('first_name', 'last_name', 'avatar')}),
         ('Permissions', {'fields': ('is_superuser', 'is_admin', 'is_staff', 'is_active', 'regimen')}),
     )
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user',)

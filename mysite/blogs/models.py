@@ -2,6 +2,9 @@ from django.db import models
 from django.shortcuts import reverse
 from django.template.defaultfilters import slugify
 from accounts.models import CustomUser
+from ckeditor.fields import RichTextField
+
+from accounts.models import CustomUser
 
 # Create your models here.
 
@@ -26,9 +29,10 @@ class Category(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(max_length=255, null=True, blank=True)
-    body = models.TextField()
+    body = RichTextField(blank=True, null=True)
     image = models.ImageField(upload_to='blog_images', blank=True, null=True)
     category = models.CharField(max_length=100)
+    likes = models.ManyToManyField(CustomUser, related_name='blog_like')
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, blank=True, null=True)
     create_on = models.DateTimeField(auto_now_add=True, blank=True, null=True)
