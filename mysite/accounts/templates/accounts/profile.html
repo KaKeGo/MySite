@@ -56,7 +56,7 @@
                   <strong>{{profile.user.date_joined}}</strong>
               <div class="mx-5">
                   <div class="card-footer text-center col-sm-12 mx-auto row mb-3">
-                      <a href="{% url 'accounts:update' %}" class="btn btn-outline-primary btn-lg mt-3">Update info</a>
+                      <a href="{% url 'accounts:profile_update' request.user.id %}" class="btn btn-outline-primary btn-lg mt-3">Update info</a>
                   </div>
               </div>
               {% endif %}

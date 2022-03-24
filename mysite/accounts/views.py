@@ -6,7 +6,7 @@ from django.contrib.auth.models import auth
 from django.contrib.auth.decorators import login_required
 
 from .models import Profile, CustomUser
-from .forms import UserCreationForm, UserUpdateForm
+from .forms import UserCreationForm, UserUpdateForm, ProfileUpdateForm
 # Create your views here.
 
 class ProfileView(generic.DetailView):
@@ -18,6 +18,14 @@ class ProfileView(generic.DetailView):
         profile = get_object_or_404(Profile, id=self.kwargs['pk'])
         context['profile'] = profile
         return context
+
+class ProfileUpdateView(generic.UpdateView):
+    template_name = 'accounts/profile_update.html'
+    form_class = ProfileUpdateForm
+    success_url = reverse_lazy('accounts:profile')
+
+    def get_object(self):
+        return self.request.user
 
 # @login_required
 # def user_profile_view(request):

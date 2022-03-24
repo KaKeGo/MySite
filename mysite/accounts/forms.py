@@ -1,10 +1,10 @@
 from django import forms
 from django.contrib import admin
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import UserChangeForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm as CreateUser
 
-from .models import CustomUser
+from .models import CustomUser, Profile
 
 
 class UserCreationForm(CreateUser):
@@ -28,3 +28,8 @@ class UserUpdateForm(forms.ModelForm):
         model = CustomUser
         fields = ('username', 'first_name', 'last_name')
 
+class ProfileUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'first_name', 'last_name')

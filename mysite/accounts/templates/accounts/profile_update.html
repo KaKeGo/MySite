@@ -1,0 +1,49 @@
+{% extends 'master.html' %}
+
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<style>
+    .b{
+        border-radius: 15px;
+    }
+    img{
+        width: 40%;
+        border-radius: 50%;
+    }
+</style>
+
+
+<div class="container mt-5">
+  <div class="row align-items-start">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="card shadow-lg b">
+          <div class="card-title text-center mt-4">
+              <strong>
+                  {% if request.user.is_authenticated %}
+                  <h2>{{request.user.username}} - profile</h2>
+                  {% else %}
+                  <h4>You are not authenticated</h4>
+                  {% endif %}
+              </strong>
+          </div>
+          <hr/>
+          <div class="card-body mt-3">
+              {% if request.user.is_authenticated %}
+                  <div class="card-footer text-center col-sm-12 mx-auto row mb-3">
+                      {{form.as_p}}
+                      <button type="submit" class="btn btn-outline-primary btn-lg mt-3">Update info</button>
+                  </div>
+              </div>
+              {% endif %}
+          </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
+
+{% endblock %}
