@@ -56,7 +56,7 @@
                 <a href="{{blog.get_absolute_url}}" class="btn btn-outline-primary b">Check</a>
             </div>
             <div class="card-footer text-muted text-center mt-3">
-                <strong>Author: {{blog.author}} Create: {{blog.create_on}}</strong>
+                <strong>Author: <a href="{% url 'accounts:profile' request.user.id %}">{{blog.author}}</a> Create: {{blog.create_on}}</strong>
             </div>
           </div>
           {% endfor %}

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 
 from .views import (
-    user_profile_view,
+    # user_profile_view,
     sign_up_view,
     login_user_view,
     logout_view,
@@ -15,7 +15,7 @@ from .views import (
 app_name = 'accounts'
 
 urlpatterns = [
-    path('profile1/', user_profile_view, name='profile1'),
+    # path('profile1/', user_profile_view, name='profile1'),
     path('<int:pk>/profile/', login_required(ProfileView.as_view()), name='profile'),
     path('profile/update/', update_profile_view, name='update'),
     path('sign-up/', sign_up_view, name='sign_up'),

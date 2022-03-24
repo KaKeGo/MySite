@@ -14,22 +14,21 @@ class ProfileView(generic.DetailView):
     model = Profile
 
     def get_context_data(self, *args, **kwargs):
-        user = Profile.objects.all()
         context = super(ProfileView, self).get_context_data(*args, **kwargs)
         profile = get_object_or_404(Profile, id=self.kwargs['pk'])
         context['profile'] = profile
         return context
 
-@login_required
-def user_profile_view(request):
-    template = 'accounts/profile1.html'
-
-    profile = CustomUser.objects.all()
-
-    context = {
-        'profiles': profile
-    }
-    return render(request, template, context)
+# @login_required
+# def user_profile_view(request):
+#     template = 'accounts/profile1.html'
+#
+#     profile = CustomUser.objects.all()
+#
+#     context = {
+#         'profiles': profile
+#     }
+#     return render(request, template, context)
 
 def sign_up_view(request):
     template = 'accounts/signup.html'

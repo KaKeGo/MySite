@@ -9,6 +9,10 @@
     .b{
         border-radius: 15px;
     }
+    img{
+        width: 40%;
+        border-radius: 50%;
+    }
 </style>
 
 
@@ -21,6 +25,9 @@
               <strong>
                   {% if request.user.is_authenticated %}
                   <h2>{{request.user.username}} - profile</h2>
+                    <div class="text-center">
+                        <img src="{{profile.user.avatar.url}}">
+                    </div>
                   {% else %}
                   <h4>You are not authenticated</h4>
                   {% endif %}
@@ -30,24 +37,26 @@
           <div class="card-body mt-3">
               {% if request.user.is_authenticated %}
               <div class="form-floating col-6 mx-auto">
-                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.username}}" readonly>
+                  <input class="form-control border-dark" id="floatingInput" value="{{profile.user.username}}" readonly>
                   <label for="floatingInput">Username</label>
               </div>
               <div class="form-floating col-6 mx-auto mt-2">
-                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.email}}" readonly>
+                  <input class="form-control border-dark" id="floatingInput" value="{{profile.user.email}}" readonly>
                   <label for="floatingInput">Email</label>
               </div>
               <div class="form-floating col-6 mx-auto mt-2">
-                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.first_name}}" readonly>
+                  <input class="form-control border-dark" id="floatingInput" value="{{profile.user.first_name}}" readonly>
                   <label for="floatingInput">First name</label>
               </div>
-              <div class="form-floating col-6 mx-auto mt-2 mb-5">
-                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.last_name}}" readonly>
+              <div class="form-floating col-6 mx-auto mt-2 ">
+                  <input class="form-control border-dark" id="floatingInput" value="{{profile.user.last_name}}" readonly>
                   <label for="floatingInput">Last name</label>
               </div>
+              <div class="col-6 mx-auto mt-2">
+                  <strong>{{profile.user.date_joined}}</strong>
               <div class="mx-5">
-                  <div class="card-footer text-center col-6 mx-auto row mb-3">
-                      <a href="{% url 'accounts:update' %}" class="btn btn-outline-primary btn-lg mt-3">Update account info</a>
+                  <div class="card-footer text-center col-sm-12 mx-auto row mb-3">
+                      <a href="{% url 'accounts:update' %}" class="btn btn-outline-primary btn-lg mt-3">Update info</a>
                   </div>
               </div>
               {% endif %}
