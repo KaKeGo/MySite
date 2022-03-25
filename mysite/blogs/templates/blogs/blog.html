@@ -55,12 +55,14 @@
             <div class="d-grip gap-2 col-6 mx-auto row mt-3">
                 <a href="{{blog.get_absolute_url}}" class="btn btn-outline-primary b">Check</a>
             </div>
+              {% if user.is_authenticated %}
             <div class="card-footer text-muted text-center mt-3">
                 <strong>Author: <a href="{% url 'accounts:profile' user.id %}">{{blog.author}}</a> Create: {{blog.create_on}}</strong>
                 <form class="col-6 mx-auto mt-3 text-center" action="{% url 'blogs:like' blog.author.id %}" method="post">{% csrf_token %}
                     <a class="btn btn-success">{{blog.total_likes}}</a><button class="btn-outline-success btn" type="submit" name="likes" value="{{blog.id}}">Like</button>
                 </form>
             </div>
+              {% endif %}
           </div>
           {% endfor %}
         </div>
