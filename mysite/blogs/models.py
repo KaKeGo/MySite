@@ -46,6 +46,10 @@ class Blog(models.Model):
     def __str__(self):
         return self.title + str(self.author)
 
+    @property
+    def total_likes(self):
+        return self.likes.count()
+
     def get_absolute_url(self):
         return reverse('blogs:detail', kwargs={'slug':self.slug})
 

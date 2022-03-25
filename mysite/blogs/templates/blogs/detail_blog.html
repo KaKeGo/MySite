@@ -45,7 +45,7 @@
                 <h1 class="mt-2">{{blogs.title}}</h1>
             </div>
             <hr/>
-            <p class="mx-4">{{blogs.body}}</p>
+            <p class="mx-4">{{blogs.body|safe}}</p>
             <hr/>
             <p class="mx-4">{{blogs.author}} | {{blogs.create_on}}</p>
         </div>

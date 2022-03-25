@@ -8,6 +8,13 @@ from .forms import BlogCreateForm, BlogUpdateForm, BlogDeleteForm, CategoryCreat
 
 # Create your views here.
 
+def like_view(request, pk):
+    like = get_object_or_404(Blog, id=request.POST.get('likes'))
+    if like.likes.filter(id=request.user.id).exists():
+        like.likes.remove(request.user)
+    else:
+        like.likes.add(request.user)
+    return redirect('blogs:blog')
 
 class BlogView(generic.ListView):
     template_name = 'blogs/blog.html'
