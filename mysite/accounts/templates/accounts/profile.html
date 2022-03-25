@@ -51,6 +51,7 @@
                   <input class="form-control border-dark" id="floatingInput" value="{{profile.user.last_name}}" readonly>
                   <label for="floatingInput">Last name</label>
               </div>
+              {% if user.id == profile.user.id %}
               <div class="col-4 mx-auto mt-6">
                   <strong>{{profile.user.date_joined}}</strong>
               <div class="d-grip gap-2 col-12 mx-auto row mt-3">
@@ -59,12 +60,13 @@
                       Update info
                   </a>
               </div>
-              <div class="d-grip gap-2 col-12 mx-auto row mt-3 mb-3">
+              <div class="d-grip gap-2 col-12 mx-auto row mt-3 mb-4">
                   <a href="{% url 'accounts:password_update' %}"
                      class="btn btn-outline-danger btn-lg mt-3">
                       Change password
                   </a>
               </div>
+                  {% endif %}
               {% endif %}
           </div>
       </div>
