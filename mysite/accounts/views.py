@@ -20,7 +20,7 @@ from .forms import (
 class PasswordUpdateView(PasswordChangeView):
     template_name = 'accounts/password_update.html'
     form_class = PasswordUpdateForm
-    success_url = reverse_lazy('accounts:profile')
+    success_url = reverse_lazy('blogs:blog')
 
 class ProfileView(generic.DetailView):
     template_name = 'accounts/profile.html'
@@ -36,7 +36,10 @@ class ProfileUpdateView(generic.UpdateView):
     model = Profile
     template_name = 'accounts/profile_update.html'
     form_class = ProfileUpdateForm
-    success_url = reverse_lazy('accounts:profile_update')
+
+    def get_success_url(self):
+        success_url = reverse_lazy('accounts:profile_update', kwargs={'pk': self.object.pk})
+        return success_url
 
     def get_object(self):
         return self.request.user
@@ -80,7 +83,7 @@ def login_user_view(request):
             auth.login(request,user)
             return redirect('blogs:blog')
         else:
-            return render('accounts:login')
+            return redirect('accounts:sign_in')
     else:
         context = {}
         return render(request, template, context)
