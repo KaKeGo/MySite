@@ -1,13 +1,12 @@
 from django import forms
 from django.contrib import admin
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import UserCreationForm as CreateUser
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 
-from .models import CustomUser
+from .models import CustomUser, Profile
 
 
-class UserCreationForm(CreateUser):
+class UserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
     class Meta:
@@ -28,3 +27,31 @@ class UserUpdateForm(forms.ModelForm):
         model = CustomUser
         fields = ('username', 'first_name', 'last_name')
 
+class ProfileUpdateForm(forms.ModelForm):
+    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
+        'class': 'form-control border-dark text-center'
+    }))
+    email = forms.EmailField(max_length=100, widget=forms.EmailInput(attrs={
+        'class': 'form-control border-dark text-center'
+    }))
+    first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
+        'class': 'form-control border-dark text-center'
+    }))
+    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
+        'class': 'form-control border-dark text-center'
+    }))
+
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'first_name', 'last_name')
+
+class PasswordUpdateForm(PasswordChangeForm):
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
+    new_password1 = forms.CharField(max_length=100,
+                                    widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
+    new_password2 = forms.CharField(max_length=100,
+                                    widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
+
+    class Meta:
+        model = CustomUser
+        fields = ('old_password', 'new_password1', 'new_password2')

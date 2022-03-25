@@ -24,7 +24,7 @@
               </strong>
           </div>
           <hr/>
-          <form class="card-body mt-3" method="post">{% csrf_token %}
+          <form class="card-body" method="post">{% csrf_token %}
               <div class="form-floating mx-5 col-6 mx-auto">
                   <input class="form-control border-dark" id="floatingInput"
                             autofocus name="username" type="text" maxlength="30">
@@ -50,8 +50,9 @@
                   <label class="form-check-label" for="flexSwitchCheckDefault">
                       Read <a href="">regimen</a> to know what u accept</label>
                 </div>
-              <div class="card-footer d-grip gap-2 col-6 mx-auto row mt-3">
-                  <button class="btn btn-outline-primary btn-lg mt-3" type="submit">Create account</button>
+              <div class="card-footer d-grip gap-2 col-6 mx-auto row mt-2">
+                    <button class="btn btn-outline-primary btn-lg mt-3" type="submit">Create account</button>
+                    <a class="text-center" href="{% url 'accounts:sign_in' %}">Sing in</a>
               </div>
           </form>
       </div>

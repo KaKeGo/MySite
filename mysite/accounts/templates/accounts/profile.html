@@ -9,8 +9,11 @@
     .b{
         border-radius: 15px;
     }
+    img{
+        width: 40%;
+        border-radius: 40px;
+    }
 </style>
-
 
 <div class="container mt-5">
   <div class="row align-items-start">
@@ -20,7 +23,10 @@
           <div class="card-title text-center mt-4">
               <strong>
                   {% if request.user.is_authenticated %}
-                  <h2>{{request.user.username}} - profile</h2>
+                  <h2>{{profile.user.username}} - profile</h2>
+                    <div class="text-center">
+                        <img src="{{profile.user.avatar.url}}">
+                    </div>
                   {% else %}
                   <h4>You are not authenticated</h4>
                   {% endif %}
@@ -29,27 +35,38 @@
           <hr/>
           <div class="card-body mt-3">
               {% if request.user.is_authenticated %}
-              <div class="form-floating col-6 mx-auto">
-                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.username}}" readonly>
+              <div class="form-floating col-8 mx-auto">
+                  <input class="form-control border-dark" id="floatingInput" value="{{profile.user.username}}" readonly>
                   <label for="floatingInput">Username</label>
               </div>
-              <div class="form-floating col-6 mx-auto mt-2">
-                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.email}}" readonly>
+              <div class="form-floating col-8 mx-auto mt-2">
+                  <input class="form-control border-dark" id="floatingInput" value="{{profile.user.email}}" readonly>
                   <label for="floatingInput">Email</label>
               </div>
-              <div class="form-floating col-6 mx-auto mt-2">
-                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.first_name}}" readonly>
+              <div class="form-floating col-8 mx-auto mt-2">
+                  <input class="form-control border-dark" id="floatingInput" value="{{profile.user.first_name}}" readonly>
                   <label for="floatingInput">First name</label>
               </div>
-              <div class="form-floating col-6 mx-auto mt-2 mb-5">
-                  <input class="form-control border-dark" id="floatingInput" value="{{request.user.last_name}}" readonly>
+              <div class="form-floating col-8 mx-auto mt-2 ">
+                  <input class="form-control border-dark" id="floatingInput" value="{{profile.user.last_name}}" readonly>
                   <label for="floatingInput">Last name</label>
               </div>
-              <div class="mx-5">
-                  <div class="card-footer text-center col-6 mx-auto row mb-3">
-                      <a href="{% url 'accounts:update' %}" class="btn btn-outline-primary btn-lg mt-3">Update account info</a>
-                  </div>
+              {% if user.id == profile.user.id %}
+              <div class="col-4 mx-auto mt-6">
+                  <strong>{{profile.user.date_joined}}</strong>
+              <div class="d-grip gap-2 col-12 mx-auto row mt-3">
+                  <a href="{% url 'accounts:profile_update' request.user.id %}"
+                     class="btn btn-outline-primary btn-lg mt-3">
+                      Update info
+                  </a>
               </div>
+              <div class="d-grip gap-2 col-12 mx-auto row mt-3 mb-4">
+                  <a href="{% url 'accounts:password_update' %}"
+                     class="btn btn-outline-danger btn-lg mt-3">
+                      Change password
+                  </a>
+              </div>
+                  {% endif %}
               {% endif %}
           </div>
       </div>
@@ -57,5 +74,5 @@
     <div class="col-md-2"></div>
   </div>
 </div>
-
+</div>
 {% endblock %}

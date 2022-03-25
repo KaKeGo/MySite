@@ -3,8 +3,6 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 # Create your models here.
 
-class Model(models.Model):
-    pass
 
 class AccountManager(BaseUserManager):
     def create_user(self, email, username, password=None):
@@ -57,3 +55,10 @@ class CustomUser(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+class Profile(models.Model):
+    user = models.OneToOneField(CustomUser, null=True, on_delete=models.CASCADE)
+    bio = models.TextField()
+
+    def __str__(self):
+        return str(self.user)

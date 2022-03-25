@@ -8,12 +8,25 @@ from .forms import BlogCreateForm, BlogUpdateForm, BlogDeleteForm, CategoryCreat
 
 # Create your views here.
 
+def like_view(request, pk):
+    like = get_object_or_404(Blog, id=request.POST.get('likes'))
+    if like.likes.filter(id=request.user.id).exists():
+        like.likes.remove(request.user)
+    else:
+        like.likes.add(request.user)
+    return redirect('blogs:blog')
 
 class BlogView(generic.ListView):
     template_name = 'blogs/blog.html'
     model = Blog
     context_object_name = 'blogs'
     paginate_by = 3
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProfileView, self).get_context_data(*args, **kwargs)
+        profile = get_object_or_404(Profile, id=self.kwargs['pk'])
+        context['user'] = profile
+        return context
 
     def get_context_data(self, *args, **kwargs):
         category = Category.objects.all()
@@ -54,7 +67,6 @@ class BlogCreateView(generic.CreateView):
         return render(request, template, context)
 
     def post(self, request, *args, **kwargs):
-        template = 'blogs/create_blog.html'
         if request.method == 'POST':
             form = BlogCreateForm(request.POST, request.FILES)
             form2 = CategoryCreateForm(request.POST)
@@ -66,12 +78,6 @@ class BlogCreateView(generic.CreateView):
             elif form2.is_valid():
                 form2.save()
                 return redirect('blogs:create')
-        else:
-            form = BlogCreateForm()
-        context = {
-            'form': form,
-        }
-        return render(request, template, context)
 
 class BlogUpdateView(generic.UpdateView):
     def get(self, request, slug, *args, **kwargs):
