@@ -7,20 +7,22 @@ from .views import (
     sign_up_view,
     login_user_view,
     logout_view,
-    update_profile_view,
+    # update_profile_view,
     ProfileView,
     ProfileUpdateView,
+    PasswordUpdateView,
 )
 
 
 app_name = 'accounts'
 
 urlpatterns = [
-    # path('profile1/', user_profile_view, name='profile1'),
-    path('<int:pk>/profile/', login_required(ProfileView.as_view()), name='profile'),
-    path('profile/update/', update_profile_view, name='update'),
-    path('<int:pk>/profile/update/', login_required(ProfileUpdateView.as_view()), name='profile_update'),
     path('sign-up/', sign_up_view, name='sign_up'),
     path('sign-in/', login_user_view, name='sign_in'),
     path('logout/', logout_view, name='logout'),
+    # path('profile1/', user_profile_view, name='profile1'),
+    path('<int:pk>/profile/', login_required(ProfileView.as_view()), name='profile'),
+    # path('profile/update/', update_profile_view, name='update'),
+    path('<int:pk>/profile/update/', login_required(ProfileUpdateView.as_view()), name='profile_update'),
+    path('password/', login_required(PasswordUpdateView.as_view()), name='password_update'),
 ]

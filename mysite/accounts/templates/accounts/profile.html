@@ -23,7 +23,7 @@
           <div class="card-title text-center mt-4">
               <strong>
                   {% if request.user.is_authenticated %}
-                  <h2>{{request.user.username}} - profile</h2>
+                  <h2>{{profile.user.username}} - profile</h2>
                     <div class="text-center">
                         <img src="{{profile.user.avatar.url}}">
                     </div>
@@ -53,10 +53,17 @@
               </div>
               <div class="col-4 mx-auto mt-6">
                   <strong>{{profile.user.date_joined}}</strong>
-              <div class="mx-5 col-12 mx-auto">
-                  <div class="card-footer text-center col-sm-12 mx-auto row mb-3">
-                      <a href="{% url 'accounts:profile_update' request.user.id %}" class="btn btn-outline-primary btn-lg mt-3">Update info</a>
-                  </div>
+              <div class="d-grip gap-2 col-12 mx-auto row mt-3">
+                  <a href="{% url 'accounts:profile_update' request.user.id %}"
+                     class="btn btn-outline-primary btn-lg mt-3">
+                      Update info
+                  </a>
+              </div>
+              <div class="d-grip gap-2 col-12 mx-auto row mt-3 mb-3">
+                  <a href="{% url 'accounts:password_update' %}"
+                     class="btn btn-outline-danger btn-lg mt-3">
+                      Change password
+                  </a>
               </div>
               {% endif %}
           </div>
@@ -65,5 +72,5 @@
     <div class="col-md-2"></div>
   </div>
 </div>
-
+</div>
 {% endblock %}

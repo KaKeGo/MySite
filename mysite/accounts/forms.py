@@ -1,13 +1,12 @@
 from django import forms
 from django.contrib import admin
-from django.contrib.auth.forms import UserChangeForm
 from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import UserCreationForm as CreateUser
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 
 from .models import CustomUser, Profile
 
 
-class UserCreationForm(CreateUser):
+class UserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
     class Meta:
@@ -45,3 +44,14 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'email', 'first_name', 'last_name')
+
+class PasswordUpdateForm(PasswordChangeForm):
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
+    new_password1 = forms.CharField(max_length=100,
+                                    widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
+    new_password2 = forms.CharField(max_length=100,
+                                    widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
+
+    class Meta:
+        model = CustomUser
+        fields = ('old_password', 'new_password1', 'new_password2')

@@ -16,6 +16,12 @@ class BlogView(generic.ListView):
     paginate_by = 3
 
     def get_context_data(self, *args, **kwargs):
+        context = super(ProfileView, self).get_context_data(*args, **kwargs)
+        profile = get_object_or_404(Profile, id=self.kwargs['pk'])
+        context['user'] = profile
+        return context
+
+    def get_context_data(self, *args, **kwargs):
         category = Category.objects.all()
         context = super(BlogView, self).get_context_data(*args, **kwargs)
         context['category'] = category

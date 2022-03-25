@@ -1,13 +1,26 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from .models import CustomUser
 from django.contrib.auth.models import auth
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import PasswordChangeView
 
 from .models import Profile, CustomUser
-from .forms import UserCreationForm, UserUpdateForm, ProfileUpdateForm
+from .forms import (
+    UserCreationForm,
+    UserUpdateForm,
+    ProfileUpdateForm,
+    PasswordUpdateForm
+)
 # Create your views here.
+
+
+class PasswordUpdateView(PasswordChangeView):
+    template_name = 'accounts/password_update.html'
+    form_class = PasswordUpdateForm
+    success_url = reverse_lazy('accounts:profile')
 
 class ProfileView(generic.DetailView):
     template_name = 'accounts/profile.html'
@@ -76,19 +89,19 @@ def logout_view(request):
     auth.logout(request)
     return redirect('blogs:blog')
 
-@login_required
-def update_profile_view(request):
-    templates = 'accounts/update_profile.html'
-
-    if request.method == 'POST':
-        form = UserUpdateForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('accounts:profile')
-    else:
-        form = UserUpdateForm(instance=request.user)
-    context = {
-        'form': form,
-    }
-    return render(request, templates, context)
+# @login_required
+# def update_profile_view(request):
+#     templates = 'accounts/update_profile.html'
+#
+#     if request.method == 'POST':
+#         form = UserUpdateForm(request.POST, instance=request.user)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('accounts:profile')
+#     else:
+#         form = UserUpdateForm(instance=request.user)
+#     context = {
+#         'form': form,
+#     }
+#     return render(request, templates, context)
 
