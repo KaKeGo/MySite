@@ -22,6 +22,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blogs.urls', namespace='blogs')),
+    path('api/', include('blogs.api.urls', namespace='blogs-api')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('contacts/', include('contacts.urls', namespace='contacts')),
     path('about/', include('about.urls', namespace='about')),
