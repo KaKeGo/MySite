@@ -9,6 +9,6 @@ from .views import (
 app_name = 'about'
 
 urlpatterns = [
-    path('about/', login_required(AboutView.as_view()), name='about'),
+    path('', login_required(AboutView.as_view()), name='about'),
 
 ]

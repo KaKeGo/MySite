@@ -48,6 +48,8 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'ckeditor',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [

@@ -22,9 +22,16 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blogs.urls', namespace='blogs')),
+    path('api/blogs/', include('blogs.api.urls', namespace='blogs-api')),
+
     path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('api/accounts/', include('accounts.api.urls', namespace='accounts')),
+
     path('contacts/', include('contacts.urls', namespace='contacts')),
+    path('api/contacts/', include('contacts.api.urls', namespace='contacts')),
+
     path('about/', include('about.urls', namespace='about')),
+    path('api/about/', include('about.api.urls', namespace='about')),
 
     #Password reset
     path('reset-password/', auth_views.PasswordResetView.as_view(
