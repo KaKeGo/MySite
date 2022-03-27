@@ -8,7 +8,7 @@ class AboutSerializer(serializers.ModelSerializer):
         model = About
         fields = ('id', 'name', 'description', 'avatar', 'skills')
 
-class SkillSerializer(serializers.ModelSerializer):
+class SkillsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skills
         fields = ('id', 'title', 'score')
