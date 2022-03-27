@@ -2,14 +2,14 @@ from rest_framework import status, views, generics, mixins
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from blogs.models import Category, Blog
-from .serializers import CategorySerializer, BlobSerializer
+from contacts.models import Contact, ContactMessage
+from .serializers import ContactSerializer, ContactMessageSerializer
 
 
-class BlogApiDelUpdView(generics.GenericAPIView, mixins.ListModelMixin, mixins.UpdateModelMixin,
-                        mixins.DestroyModelMixin, mixins.RetrieveModelMixin):
-    serializer_class = BlobSerializer
-    queryset = Blog.objects.all()
+class ContactMessageDelUpdApiView(generics.GenericAPIView, mixins.ListModelMixin, mixins.UpdateModelMixin,
+                                  mixins.DestroyModelMixin, mixins.RetrieveModelMixin):
+    serializer_class = ContactMessageSerializer
+    queryset = ContactMessage.objects.all()
     lookup_field = 'id'
 
     def get(self, request, id=None):
@@ -24,9 +24,9 @@ class BlogApiDelUpdView(generics.GenericAPIView, mixins.ListModelMixin, mixins.U
     def delete(self, request, id=None):
         return self.destroy(request, id)
 
-class BlogApiView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
-    serializer_class = BlobSerializer
-    queryset = Blog.objects.all()
+class ContactMessageLisPosApiView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    serializer_class = ContactMessageSerializer
+    queryset = ContactMessage.objects.all()
 
     def get(self, request):
         return self.list(request)
@@ -34,10 +34,10 @@ class BlogApiView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateM
     def post(self, request):
         return self.create(request)
 
-class CategoryUpDelView(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.DestroyModelMixin,
-                        mixins.RetrieveModelMixin):
-    serializer_class = CategorySerializer
-    queryset = Category.objects.all()
+class ContactDelUpdApiView(generics.GenericAPIView, mixins.ListModelMixin, mixins.DestroyModelMixin,
+                           mixins.RetrieveModelMixin, mixins.UpdateModelMixin):
+    serializer_class = ContactSerializer
+    queryset = Contact.objects.all()
     lookup_field = 'id'
 
     def get(self, request, id=None):
@@ -49,12 +49,12 @@ class CategoryUpDelView(generics.GenericAPIView, mixins.UpdateModelMixin, mixins
     def put(self, request, id=None):
         return self.update(request, id)
 
-    def delete(self, request, id=None):
+    def delete(self, request, id):
         return self.destroy(request, id)
 
-class CategoryApiView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
-    serializer_class = CategorySerializer
-    queryset = Category.objects.all()
+class ContactPoLiApiView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    serializer_class = ContactSerializer
+    queryset = Contact.objects.all()
 
     def get(self, request):
         return self.list(request)

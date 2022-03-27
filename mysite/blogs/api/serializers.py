@@ -11,4 +11,4 @@ class CategorySerializer(serializers.ModelSerializer):
 class BlobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
-        fields = ('title', 'body', 'image', 'category', 'likes', 'author', 'slug')
+        fields = ('id', 'title', 'body', 'image', 'category', 'likes', 'author', 'slug')
