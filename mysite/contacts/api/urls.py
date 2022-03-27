@@ -7,7 +7,7 @@ from .views import (
     ContactMessageDelUpdApiView,
 )
 
-app_name = 'blogs-api'
+app_name = 'contacts-api'
 
 urlpatterns = [
     path('', ContactPoLiApiView.as_view(), name='api-contact-post-list'),
