@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/blogs/', include('blogs.api.urls', namespace='blogs-api')),
 
     path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('api/accounts/', include('accounts.api.urls', namespace='accounts')),
 
     path('contacts/', include('contacts.urls', namespace='contacts')),
     path('api/contacts/', include('contacts.api.urls', namespace='contacts')),
