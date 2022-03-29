@@ -8,7 +8,7 @@ from .views import (
     BlogUpdateView,
     # update_blog_view,
     category_view,
-    like_view,
+    blog_data_view,
 )
 
 
@@ -21,5 +21,6 @@ urlpatterns = [
     path('detail/<slug:slug>/update/', login_required(BlogUpdateView.as_view()), name='update'),
     # path('detail/<slug:slug>/update/', update_blog_view, name='update'),
     path('category/<slug:slug>', category_view, name='category'),
-    path('like/<int:pk>', like_view, name='like'),
+
+    path('data/', blog_data_view, name='blog_data'),
 ]

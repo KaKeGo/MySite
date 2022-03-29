@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.urls import reverse_lazy
+from django.http import JsonResponse
 
 from accounts.models import CustomUser
 from .models import Blog, Category
@@ -20,7 +21,6 @@ class BlogView(generic.ListView):
     template_name = 'blogs/blog.html'
     model = Blog
     context_object_name = 'blogs'
-    paginate_by = 3
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProfileView, self).get_context_data(*args, **kwargs)
@@ -33,6 +33,25 @@ class BlogView(generic.ListView):
         context = super(BlogView, self).get_context_data(*args, **kwargs)
         context['category'] = category
         return context
+
+def blog_data_view(request):
+    # visible = 3
+    # upper = num_blogs
+    # lower = upper - visible
+    # size = Blog.objects.all().count()
+
+    blogs = Blog.objects.all()
+
+    data = []
+    for blog in blogs:
+        item = {
+            'id': blog.id,
+            'title': blog.title,
+            'body': blog.body,
+            'author': blog.author.username,
+        }
+        data.append(item)
+    return JsonResponse({'data': data})
 
 class BlogDetailView(generic.DetailView):
     template_name = 'blogs/detail_blog.html'
