@@ -34,7 +34,11 @@ class BlogView(generic.ListView):
         context['category'] = category
         return context
 
-def blog_data_view(request):
+def blog_data_view(request, num_blogs):
+    visible = 3
+    upper = num_blogs
+    lower = upper - visible
+    size = Blog.objects.all().count()
 
     blogs = Blog.objects.all()
 
@@ -45,11 +49,12 @@ def blog_data_view(request):
             'title': blog.title,
             'body': blog.body,
             'category': blog.category,
+            'likes': True if request.user in blog.likes.all() else False,
             'author': blog.author.username,
             'create_on': blog.create_on,
         }
         data.append(item)
-    return JsonResponse({'data': data})
+    return JsonResponse({'data': data[lower:upper], 'size': size})
 
 class BlogDetailView(generic.DetailView):
     template_name = 'blogs/detail_blog.html'

@@ -54,5 +54,5 @@ class Blog(models.Model):
         return reverse('blogs:detail', kwargs={'slug':self.slug})
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(str(self.pk) + '-' + str(self.author))
+        self.slug = slugify(str(self.pk) + '-' + str(self.author) + '-' + self.title)
         super(Blog, self).save(*args, **kwargs)

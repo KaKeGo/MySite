@@ -21,17 +21,17 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('blogs.urls', namespace='blogs')),
-    path('api/blogs/', include('blogs.api.urls', namespace='blogs-api')),
+    path('', include('blogs.urls')),
+    path('api/blogs/', include('blogs.api.urls')),
 
-    path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('api/accounts/', include('accounts.api.urls', namespace='accounts')),
+    path('accounts/', include('accounts.urls')),
+    path('api/accounts/', include('accounts.api.urls')),
 
-    path('contacts/', include('contacts.urls', namespace='contacts')),
-    path('api/contacts/', include('contacts.api.urls', namespace='contacts')),
+    path('contacts/', include('contacts.urls')),
+    path('api/contacts/', include('contacts.api.urls')),
 
-    path('about/', include('about.urls', namespace='about')),
-    path('api/about/', include('about.api.urls', namespace='about')),
+    path('about/', include('about.urls')),
+    path('api/about/', include('about.api.urls')),
 
     #Password reset
     path('reset-password/', auth_views.PasswordResetView.as_view(
