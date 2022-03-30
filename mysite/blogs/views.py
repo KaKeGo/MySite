@@ -35,10 +35,6 @@ class BlogView(generic.ListView):
         return context
 
 def blog_data_view(request):
-    # visible = 3
-    # upper = num_blogs
-    # lower = upper - visible
-    # size = Blog.objects.all().count()
 
     blogs = Blog.objects.all()
 
@@ -48,7 +44,9 @@ def blog_data_view(request):
             'id': blog.id,
             'title': blog.title,
             'body': blog.body,
+            'category': blog.category,
             'author': blog.author.username,
+            'create_on': blog.create_on,
         }
         data.append(item)
     return JsonResponse({'data': data})
