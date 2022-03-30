@@ -5,6 +5,52 @@ const postsBox = document.getElementById('posts-box')
 const moreBlogsBox = document.getElementById('more-blogs')
 const loadBtnBox = document.getElementById('load-btn')
 
+const getCookie = (name) => {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+const likeUnlikePosts = () => {
+    const likeUnlikeForms = [...document.getElementsByClassName('like-unlike-forms')]
+    likeUnlikeForms.forEach(form=> form.addEventListener('submit', e=>{
+        e.preventDefault()
+        const clickerId = e.target.getAttribute('data-form-id')
+        const clickedBtn = document.getElementById(`like-unlike-${clickerId}`)
+
+        $.ajax({
+            type: 'POST',
+            url: '/like-unlike/',
+            data: {
+                'csrfmiddlewaretoken': csrftoken,
+                'pk': clickerId,
+            },
+            success: function (response){
+                console.log(response)
+                clickedBtn.innerHTML = `${response.count}
+                                ${response.likes ?
+                                `Unlike`: 
+                                `Like`
+                                }`
+            },
+            error: function (error){
+                console.log(error)
+            }
+        })
+    }))
+}
+
 let visible = 3
 
 const getData = () => {
@@ -32,14 +78,31 @@ const getData = () => {
                         </div>
                         <div class="card-footer text-muted text-center mt-3">
                             <strong>Author: ${el.author} |<a href=""></a> Create: ${el.create_on}</strong>
-                            <form class="col-6 mx-auto mt-3 text-center" action="" method="post">
-                                <a class="btn btn-success"></a>
-                                <button class="btn-outline-success btn" type="submit" name="likes">Like</button>
+                            <br/>
+                            <form class="col-lg-3 mx-auto mt-3 text-center btn-group like-unlike-forms" data-form-id="${el.id}" method="post">
+                                <a class="btn btn-success not-visible">${el.count}</a>
+                                ${el.likes ?
+                                `<button class="col-lg-4 btn-outline-danger btn hidden" type="submit" name="likes">Unlike</button>`: 
+                                `<button class="btn-outline-success btn hidden" type="submit" name="likes" id="like-unlike-${el.id}">Like</button>`
+                                }
                             </form>
                         </div>
                    `
                 });
+                likeUnlikePosts()
             }, 100)
+            console.log(response.size)
+            if (response.size === 0) {
+                moreBlogsBox.innerHTML = `
+                    <hr/>
+                    <strong>Eny blog not added yet</strong>`
+            }
+            else if (response.size <= visible) {
+                loadBtnBox.classList.add('not-visible')
+                moreBlogsBox.innerHTML = `
+                    <hr/>
+                    <strong>No more blogs</strong>`
+            }
         },
         error: function (error){
             console.log(error)

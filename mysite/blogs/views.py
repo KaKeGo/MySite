@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.urls import reverse_lazy
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 from accounts.models import CustomUser
 from .models import Blog, Category
@@ -34,6 +35,7 @@ class BlogView(generic.ListView):
         context['category'] = category
         return context
 
+
 def blog_data_view(request, num_blogs):
     visible = 3
     upper = num_blogs
@@ -50,11 +52,23 @@ def blog_data_view(request, num_blogs):
             'body': blog.body,
             'category': blog.category,
             'likes': True if request.user in blog.likes.all() else False,
+            'count': blog.total_likes,
             'author': blog.author.username,
             'create_on': blog.create_on,
         }
         data.append(item)
     return JsonResponse({'data': data[lower:upper], 'size': size})
+
+def like_unlike_post(request):
+    pk = request.POST.get('pk')
+    blog = Blog.objects.get(pk=pk)
+    if request.user in blog.likes.all():
+        likes = False
+        blog.likes.remove(request.user)
+    else:
+        likes = True
+        blog.likes.add(request.user)
+    return JsonResponse({'likes': likes, 'count': blog.total_likes})
 
 class BlogDetailView(generic.DetailView):
     template_name = 'blogs/detail_blog.html'
