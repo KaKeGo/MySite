@@ -25,10 +25,11 @@ class PasswordUpdateView(PasswordChangeView):
 class ProfileView(generic.DetailView):
     template_name = 'accounts/profile.html'
     model = Profile
+    context_object_name = 'profile'
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProfileView, self).get_context_data(*args, **kwargs)
-        profile = get_object_or_404(Profile, id=self.kwargs['pk'])
+        profile = get_object_or_404(Profile, slug=self.kwargs['slug'])
         context['profile'] = profile
         return context
 

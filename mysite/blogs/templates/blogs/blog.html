@@ -17,24 +17,22 @@
     .b{
         border-radius: 15px;
     }
+    .c{
+        border: solid;
+        margin: 20px;
+    }
     .card{
         border-radius: 40px;
     }
 </style>
 
 {% if user.is_admin %}
-<div class="container mx-5 row">
-    <div class="row row-cols-3">
-        <div>
-            <a class="mt-5 b mx-5"></a>
-        </div>
-        <div>
-            <a href="{% url 'blogs:create' %}" class="btn btn-outline-success mt-5 b mx-5">Create blog</a>
-        </div>
-        <div>
-            <a class="mt-5 b mx-5"></a>
-        </div>
+<div class="mx-5 d-row col-sm-12 mt-3">
+    <div class="col-sm-2"></div>
+    <div class="text-center ">
+        <a href="{% url 'blogs:create' %}" class="btn btn-outline-success b m-2 col-sm-4">Create blog</a>
     </div>
+    <div class="col-sm-2"></div>
 </div>
 
 {% endif %}
@@ -79,7 +77,7 @@
 
 <!-- Ajax version -->
 
-<div class="container mt-5 mb-2">
+<div class="container mt-3 mb-2">
   <div class="row align-items-start">
     <div class="col-md-2">
     </div>
@@ -88,6 +86,7 @@
         </div>
         <div class="text-center mt-3 " id="more-blogs">
             <div class="d-flex justify-content-center mb-3">
+                <!--   ajax content blogs.js     -->
               <div class="spinner-border" id="spinner-box">
                 <span class="visually-hidden"></span>
               </div>

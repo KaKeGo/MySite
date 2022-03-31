@@ -5,6 +5,7 @@
 {% block title %}{% endblock %}
 
 {% block content %}
+
 <style>
     img{
         width: 75%;
@@ -23,7 +24,6 @@
     </div>
 </div>
 
-
 <form class="p-4 mx-5 shadow-lg" method="post" enctype="multipart/form-data">{% csrf_token %}
     <div class="mx-5 p-5">
         <div class="m-4 text-center">
@@ -32,8 +32,8 @@
         <div class="m-4">
             <input class="form-control" name="title" value="{{ form.initial.title }}">
         </div>
-        <div class="m-4">
-            <textarea class="form-control" name="body">{{form.initial.body}}</textarea>
+        <div class="m-4 mx-auto">
+            {{form.media}}{{form.body}}
         </div>
         <div class="m-4">
             <input class="form-control" type="file" name="image" src="{{form.initial.image.url}}">

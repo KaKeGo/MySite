@@ -36,7 +36,7 @@ class BlogView(generic.ListView):
         return context
 
 
-def blog_data_view(request, num_blogs):
+def blog_data_view(request, num_blogs, *args, **kwargs):
     visible = 3
     upper = num_blogs
     lower = upper - visible
@@ -50,6 +50,7 @@ def blog_data_view(request, num_blogs):
             'id': blog.id,
             'title': blog.title,
             'body': blog.body,
+            'image': blog.image.url,
             'category': blog.category,
             'likes': True if request.user in blog.likes.all() else False,
             'count': blog.total_likes,
@@ -97,8 +98,10 @@ def category_view(request, slug):
 class BlogCreateView(generic.CreateView):
     def get(self, request, *args, **kwargs):
         template = 'blogs/create_blog.html'
+        form = BlogCreateForm()
         category = Category.objects.all()
         context = {
+            'form': form,
             'categories': category,
         }
         return render(request, template, context)

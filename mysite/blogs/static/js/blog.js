@@ -38,13 +38,9 @@ const likeUnlikePosts = () => {
                 'csrfmiddlewaretoken': csrftoken,
                 'pk': clickerId,
             },
-            success: function (response){
+            success: function (response) {
                 console.log(response)
-                clickedBtn.innerHTML = `${response.count}
-                                ${response.likes ?
-                                `Unlike`: 
-                                `Like`
-                                }`
+                clickedBtn.innerText = response.liked ? `${response.count} Unlike ` : `${response.count} Like`
             },
             error: function (error){
                 console.log(error)
@@ -79,14 +75,11 @@ const getData = () => {
                             <a href="${detailUrl}detail/${el.slug}" class="btn btn-outline-primary b">Check</a>
                         </div>
                         <div class="card-footer text-muted text-center mt-3">
-                            <strong>Author: ${el.author} |<a href=""></a> Create: ${el.create_on}</strong>
+                            <strong>Author:  |<a href="${detailUrl}accounts/${el.author}/profile">${el.author}</a> Create: ${el.create_on}</strong>
                             <br/>
-                            <form class="col-lg-3 mx-auto mt-3 text-center btn-group like-unlike-forms" data-form-id="${el.id}" method="post">
-                                <a class="btn btn-success not-visible">${el.count}</a>
-                                ${el.likes ?
-                                `<button class="col-lg-4 btn-outline-danger btn hidden" type="submit" id="like-unlike-${el.id }name="likes">Unlike`: 
-                                `<button class="btn-outline-success btn hidden" type="submit" name="likes" id="like-unlike-${el.id}">Like</button>`
-                                }
+                            <form class="col-lg-1 mx-auto mt-3 text-center btn-group like-unlike-forms" data-form-id="${el.id}" method="post">
+                                <a class="btn btn-success not-visible"></a>
+                                <button class="btn-outline-success btn hidden" style="border-radius: 25px;" type="submit" name="likes" id="like-unlike-${el.id}">${el.liked ? `${el.count} Unlike`: `${el.count} Like`}</button>
                             </form>
                         </div>
                    `
