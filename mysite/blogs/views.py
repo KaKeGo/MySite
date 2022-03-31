@@ -54,6 +54,7 @@ def blog_data_view(request, num_blogs):
             'likes': True if request.user in blog.likes.all() else False,
             'count': blog.total_likes,
             'author': blog.author.username,
+            'slug': blog.slug,
             'create_on': blog.create_on,
         }
         data.append(item)

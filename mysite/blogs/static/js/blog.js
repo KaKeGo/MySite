@@ -5,6 +5,8 @@ const postsBox = document.getElementById('posts-box')
 const moreBlogsBox = document.getElementById('more-blogs')
 const loadBtnBox = document.getElementById('load-btn')
 
+const detailUrl = window.location.href
+
 const getCookie = (name) => {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -74,7 +76,7 @@ const getData = () => {
                             <p class="card-text">${el.body}</p>
                         </div>
                         <div class="d-grip gap-2 col-6 mx-auto row mt-3">
-                            <a href="" class="btn btn-outline-primary b">Check</a>
+                            <a href="${detailUrl}detail/${el.slug}" class="btn btn-outline-primary b">Check</a>
                         </div>
                         <div class="card-footer text-muted text-center mt-3">
                             <strong>Author: ${el.author} |<a href=""></a> Create: ${el.create_on}</strong>
@@ -82,7 +84,7 @@ const getData = () => {
                             <form class="col-lg-3 mx-auto mt-3 text-center btn-group like-unlike-forms" data-form-id="${el.id}" method="post">
                                 <a class="btn btn-success not-visible">${el.count}</a>
                                 ${el.likes ?
-                                `<button class="col-lg-4 btn-outline-danger btn hidden" type="submit" name="likes">Unlike</button>`: 
+                                `<button class="col-lg-4 btn-outline-danger btn hidden" type="submit" id="like-unlike-${el.id }name="likes">Unlike`: 
                                 `<button class="btn-outline-success btn hidden" type="submit" name="likes" id="like-unlike-${el.id}">Like</button>`
                                 }
                             </form>
