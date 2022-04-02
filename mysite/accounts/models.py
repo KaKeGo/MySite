@@ -1,4 +1,6 @@
 from django.db import models
+from django.template.defaultfilters import slugify
+from django.shortcuts import reverse
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 # Create your models here.
@@ -58,7 +60,15 @@ class CustomUser(AbstractBaseUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, null=True, on_delete=models.CASCADE)
-    bio = models.TextField()
+    bio = models.TextField(blank=True, null=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
 
     def __str__(self):
         return str(self.user)
+
+    def get_profile_absolute_url(self):
+        return reverse('accounts:profile', kwargs={'slug':self.slug})
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(str(self.user.username))
+        super(Profile, self).save(*args, **kwargs)

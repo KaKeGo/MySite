@@ -6,6 +6,14 @@
 
 {% block content %}
 
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success text-center">
+            <strong>{{message}}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
 <div class="container mx-5 row">
     <div class="row row-cols-3">
         <div>
@@ -24,10 +32,8 @@
                         id="floatingInput" autofocus required>
             <label for="floatingInput">Title</label>
         </div>
-        <div class="m-4 form-floating col-12 mx-auto">
-            <textarea class="form-control border-dark" name="body" rows="20" id="mytextarea"
-                        style="height: 400px" required></textarea>
-            <label for="floatingInput">Write about blog...</label>
+        <div class="m-3 form-floating col-12 mx-auto">
+            {{form.media}}{{form.body}}
         </div>
         <div class="row">
             <div class="m-4 col-2 mx-auto"></div>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from .models import Contact, ContactMessage
 from .forms import ContactMessageForm
@@ -22,6 +23,10 @@ class ContactsView(generic.ListView):
             obj = form.save(commit=False)
             obj.postman = self.request.user
             obj.save()
+            messages.success(request, 'Message was send successful')
+            return redirect(reverse_lazy('contacts:contact'))
+        else:
+            messages.error(request, 'Something wrong may be u sent one request')
             return redirect(reverse_lazy('contacts:contact'))
 
 class ContactMessgesListView(generic.ListView):
@@ -35,16 +40,17 @@ class ContactMessgesListView(generic.ListView):
         templates = 'contacts/message_list.html'
         message = ContactMessage.objects.all()
         context = {
-            'messages': message
+            'mess': message
         }
         return render(request, templates, context)
 
 class ContactMessageDetailView(generic.DetailView):
     template_name = 'contacts/message_detail.html'
     model = ContactMessage
-    context_object_name = 'messages'
+    context_object_name = 'mess'
 
     def post(self, request, slug, *args, **kwargs):
-        message = ContactMessage.objects.get(slug=slug)
-        message.delete()
+        mess = ContactMessage.objects.get(slug=slug)
+        mess.delete()
+        messages.success(request, 'Message was deleted')
         return redirect(reverse_lazy('contacts:list'))

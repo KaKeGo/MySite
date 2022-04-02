@@ -32,7 +32,7 @@ class Blog(models.Model):
     body = RichTextField(blank=True, null=True)
     image = models.ImageField(upload_to='blog_images', blank=True, null=True)
     category = models.CharField(max_length=100)
-    likes = models.ManyToManyField(CustomUser, related_name='blog_like')
+    likes = models.ManyToManyField(CustomUser, related_name='blog_like', blank=True)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, blank=True, null=True)
     create_on = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -54,5 +54,5 @@ class Blog(models.Model):
         return reverse('blogs:detail', kwargs={'slug':self.slug})
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(str(self.pk) + '-' + str(self.author))
+        self.slug = slugify(str(self.pk) + '-' + str(self.author) + '-' + self.title)
         super(Blog, self).save(*args, **kwargs)

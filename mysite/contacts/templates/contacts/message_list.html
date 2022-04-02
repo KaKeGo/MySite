@@ -6,6 +6,14 @@
 
 {% block content %}
 
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success text-center">
+            <strong>{{message}}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
 <div class="container mx-5 row">
     <div class="row row-cols-3">
         <div>
@@ -26,15 +34,15 @@
     </tr>
   </thead>
   <tbody>
-  {% for message in messages %}
+  {% for m in mess %}
     <tr>
-      <th scope="row">{{message.pk}}</th>
-      <td>{{message.name}}</td>
-      <td>{{message.postman}}</td>
-      <td>{{message.postman.email}}</td>
-      <td>{{message.create_on}}</td>
+      <th scope="row">{{m.pk}}</th>
+      <td>{{m.name}}</td>
+      <td>{{m.postman}}</td>
+      <td>{{m.postman.email}}</td>
+      <td>{{mes.create_on}}</td>
       <td>
-        <a class="btn btn-sm btn-outline-primary" href="{% url 'contacts:detail' message.slug %}">Check</a>
+        <a class="btn btn-sm btn-outline-primary" href="{% url 'contacts:detail' m.slug %}">Check</a>
       </td>
     </tr>
   {% endfor %}

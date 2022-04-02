@@ -18,7 +18,7 @@
 <div class="container mx-5 row">
     <div class="row row-cols-3">
         <div>
-            <a href="{% url 'accounts:profile' user.id %}" class="btn btn-outline-dark mt-5 b mx-5">Back</a>
+            <a href="{% url 'accounts:profile' request.user.profile.slug %}" class="btn btn-outline-dark mt-5 b mx-5">Back</a>
         </div>
     </div>
 </div>

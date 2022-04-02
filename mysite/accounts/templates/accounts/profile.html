@@ -52,14 +52,14 @@
                   <label for="floatingInput">Last name</label>
               </div>
               {% if user.id == profile.user.id %}
-              <div class="col-4 mx-auto mt-6">
-                  <strong>{{profile.user.date_joined}}</strong>
-              <div class="d-grip gap-2 col-12 mx-auto row mt-3">
-                  <a href="{% url 'accounts:profile_update' request.user.id %}"
-                     class="btn btn-outline-primary btn-lg mt-3">
-                      Update info
-                  </a>
-              </div>
+              <div class="col-7 mx-auto mt-6">
+                  <strong>Date joined: {{profile.user.date_joined}}</strong>
+<!--              <div class="d-grip gap-2 col-12 mx-auto row mt-3 ">-->
+<!--                  <a href="{% url 'accounts:profile_update' request.user.id %}"-->
+<!--                     class="btn btn-outline-primary btn-lg mt-3">-->
+<!--                      Update info-->
+<!--                  </a>-->
+<!--              </div>-->
               <div class="d-grip gap-2 col-12 mx-auto row mt-3 mb-4">
                   <a href="{% url 'accounts:password_update' %}"
                      class="btn btn-outline-danger btn-lg mt-3">

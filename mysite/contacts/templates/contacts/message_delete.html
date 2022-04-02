@@ -7,7 +7,7 @@
         <form method="post" enctype="multipart/form-data">{% csrf_token %}
             <div class="text-center mt-4">
                 <button class="btn btn-outline-danger mx-5" type="submit">Yes</button>
-                <a class="btn btn-outline-primary mx-5" href="{% url 'contacts:detail' messages.slug %}">No</a>
+                <a class="btn btn-outline-primary mx-5" href="{% url 'contacts:detail' mess.slug %}">No</a>
             </div>
         </form>
     </div>

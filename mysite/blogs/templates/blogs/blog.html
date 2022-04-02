@@ -4,6 +4,10 @@
 
 {% block title %}{% endblock %}
 
+{% block script %}
+    <script rel="javascript" type="text/javascript" src="{% static 'js/blog.js' %}" defer></script>
+{% endblock %}
+
 {% block content %}
 <style>
     img{
@@ -13,84 +17,93 @@
     .b{
         border-radius: 15px;
     }
+    .c{
+        border: solid;
+        margin: 20px;
+    }
     .card{
         border-radius: 40px;
     }
 </style>
 
-{% if user.is_admin %}
-<div class="container mx-5 row">
-    <div class="row row-cols-3">
-        <div>
-            <a class="mt-5 b mx-5"></a>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success text-center">
+            <strong>{{message}}</strong>
         </div>
-        <div>
-            <a href="{% url 'blogs:create' %}" class="btn btn-outline-success mt-5 b mx-5">Create blog</a>
-        </div>
-        <div>
-            <a class="mt-5 b mx-5"></a>
-        </div>
-    </div>
-</div>
+    {% endfor %}
 {% endif %}
 
-
-<div class="container mt-5 mb-3">
-  <div class="row align-items-start">
-    <div class="col-md-2">
-        {% include 'blogs/category_table.html' %}
+{% if user.is_admin %}
+<div class="mx-5 d-row col-sm-12 mt-3">
+    <div class="col-sm-2"></div>
+    <div class="text-center ">
+        <a href="{% url 'blogs:create' %}" class="btn btn-outline-success b m-2 col-sm-4">Create blog</a>
     </div>
-    <div class="col-md-9">
-      <div class="card shadow-lg b">
-          {% for blog in blogs %}
-          <div class="card-body">
-              <hr/>
-            <div class="text-center mt-2">
-                <h5 class="card-title">{{blog.title}}</h5>
-            </div>
-            <hr/>
-            <div class="mx-5">
-                <p class="card-text">{{blog.body|safe|truncatechars:180}}</p>
-            </div>
-            <div class="d-grip gap-2 col-6 mx-auto row mt-3">
-                <a href="{{blog.get_absolute_url}}" class="btn btn-outline-primary b">Check</a>
-            </div>
-            <div class="card-footer text-muted text-center mt-3">
-                {% if user.is_authenticated %}
-                <strong>Author: <a href="{% url 'accounts:profile' user.id %}">{{blog.author}}</a> Create: {{blog.create_on}}</strong>
-                <form class="col-6 mx-auto mt-3 text-center" action="{% url 'blogs:like' blog.author.id %}" method="post">{% csrf_token %}
-                    <a class="btn btn-success">{{blog.total_likes}}</a>
-                    <button class="btn-outline-success btn" type="submit" name="likes" value="{{blog.id}}">Like</button>
-                </form>
-                 {% endif %}
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-        </div>
-        </div>
-    <div class="col-md-1"></div>
-  </div>
+    <div class="col-sm-2"></div>
 </div>
 
+{% endif %}
 
-<div>
-  <ul class="pagination justify-content-center">
-    <li class="page-item">
-        {% if page_obj.has_previous %}
-        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-        {% endif %}
-    </li>
-    <li class="page-item mt-2 m-1" style="color: cornflowerblue">
-         {{ page_request_var }} {{ page_obj.number }}
-    </li>
+<!--<div class="container mt-5 mb-2">-->
+<!--  <div class="row align-items-start">-->
+<!--    <div class="col-md-2">-->
+<!--        {% include 'blogs/category_table.html' %}-->
+<!--    </div>-->
+<!--    <div class="col-md-9">-->
+<!--      <div class="card shadow-lg b">-->
+<!--          {% for blog in blogs %}-->
+<!--          <div class="card-body">-->
+<!--              <hr/>-->
+<!--            <div class="text-center mt-2">-->
+<!--                <h5 class="card-title">{{blog.title}}</h5>-->
+<!--            </div>-->
+<!--            <hr/>-->
+<!--            <div class="mx-5">-->
+<!--                <p class="card-text">{{blog.body|safe|truncatechars:180}}</p>-->
+<!--            </div>-->
+<!--            <div class="d-grip gap-2 col-6 mx-auto row mt-3">-->
+<!--                <a href="{{blog.get_absolute_url}}" class="btn btn-outline-primary b">Check</a>-->
+<!--            </div>-->
+<!--            <div class="card-footer text-muted text-center mt-3">-->
+<!--                {% if user.is_authenticated %}-->
+<!--                <strong>Author: <a href="{% url 'accounts:profile' user.id %}">{{blog.author}}</a> Create: {{blog.create_on}}</strong>-->
+<!--                <form class="col-6 mx-auto mt-3 text-center" action="" method="post">{% csrf_token %}-->
+<!--                    <a class="btn btn-success">{{blog.total_likes}}</a>-->
+<!--                    <button class="btn-outline-success btn" type="submit" name="likes">Like</button>-->
+<!--                </form>-->
+<!--                 {% endif %}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          {% endfor %}-->
+<!--        </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="col-md-1"></div>-->
+<!--  </div>-->
+<!--</div>-->
 
-    <li class="page-item">
-        {% if page_obj.has_next %}
-      <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-        {% endif %}
-    </li>
-  </ul>
+<!-- Ajax version -->
+
+<div class="container mt-3 mb-2">
+  <div class="row align-items-start">
+    <div class="col-md-2">
+    </div>
+        <div class="col-md-9">
+            <div class="card shadow-lg b" id="posts-box">
+        </div>
+        <div class="text-center mt-3 " id="more-blogs">
+            <div class="d-flex justify-content-center mb-3">
+                <!--   ajax content blogs.js     -->
+              <div class="spinner-border" id="spinner-box">
+                <span class="visually-hidden"></span>
+              </div>
+            </div>
+            <button class="btn btn-outline-primary b col-md-4" id="load-btn">more</button>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
 </div>
 
 {% endblock %}

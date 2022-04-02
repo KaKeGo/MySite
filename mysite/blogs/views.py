@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.urls import reverse_lazy
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from accounts.models import CustomUser
 from .models import Blog, Category
@@ -20,7 +23,6 @@ class BlogView(generic.ListView):
     template_name = 'blogs/blog.html'
     model = Blog
     context_object_name = 'blogs'
-    paginate_by = 3
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProfileView, self).get_context_data(*args, **kwargs)
@@ -33,6 +35,42 @@ class BlogView(generic.ListView):
         context = super(BlogView, self).get_context_data(*args, **kwargs)
         context['category'] = category
         return context
+
+
+def blog_data_view(request, num_blogs, *args, **kwargs):
+    visible = 3
+    upper = num_blogs
+    lower = upper - visible
+    size = Blog.objects.all().count()
+
+    blogs = Blog.objects.all()
+
+    data = []
+    for blog in blogs:
+        item = {
+            'id': blog.id,
+            'title': blog.title,
+            'body': blog.body,
+            'category': blog.category,
+            'likes': True if request.user in blog.likes.all() else False,
+            'count': blog.total_likes,
+            'author': blog.author.username,
+            'slug': blog.slug,
+            'create_on': blog.create_on,
+        }
+        data.append(item)
+    return JsonResponse({'data': data[lower:upper], 'size': size})
+
+def like_unlike_post(request):
+    pk = request.POST.get('pk')
+    blog = Blog.objects.get(pk=pk)
+    if request.user in blog.likes.all():
+        likes = False
+        blog.likes.remove(request.user)
+    else:
+        likes = True
+        blog.likes.add(request.user)
+    return JsonResponse({'likes': likes, 'count': blog.total_likes})
 
 class BlogDetailView(generic.DetailView):
     template_name = 'blogs/detail_blog.html'
@@ -60,8 +98,10 @@ def category_view(request, slug):
 class BlogCreateView(generic.CreateView):
     def get(self, request, *args, **kwargs):
         template = 'blogs/create_blog.html'
+        form = BlogCreateForm()
         category = Category.objects.all()
         context = {
+            'form': form,
             'categories': category,
         }
         return render(request, template, context)
@@ -73,11 +113,18 @@ class BlogCreateView(generic.CreateView):
             if form.is_valid():
                 obj = form.save(commit=False)
                 obj.author = self.request.user
+                form2.save(commit=False)
                 obj.save()
+                messages.success(request, 'Blog created')
                 return redirect('blogs:blog')
             elif form2.is_valid():
+                form.save(commit=False)
                 form2.save()
+                messages.success(request, 'category added')
                 return redirect('blogs:create')
+        else:
+            messages.error(request, 'Something goes wrong')
+            return redirect('blogs:create')
 
 class BlogUpdateView(generic.UpdateView):
     def get(self, request, slug, *args, **kwargs):

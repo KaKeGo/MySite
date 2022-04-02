@@ -67,7 +67,7 @@
           {{request.user.username}} <img class="avatar" src="{{request.user.avatar.url}}">
         </button>
         <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenu2">
-          <li class="dropdown-item btn btn-dark" type="button"><a class="tx" href="{% url 'accounts:profile' user.id %}">Profile</a></li>
+          <li class="dropdown-item btn btn-dark" type="button"><a class="tx" href="{% url 'accounts:profile' request.user.profile.slug %}">Profile</a></li>
         </ul>
       </div>
       {% endif %}
