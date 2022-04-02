@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'accounts',
     'contacts',
     'about',
+    'project',
 
     'crispy_forms',
     'ckeditor',
