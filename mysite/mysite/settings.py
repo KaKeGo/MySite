@@ -27,6 +27,8 @@ SECRET_KEY = 'django-insecure-j(q5n%1ci#z)mlbe8tq2ln93a!7l)t6@u&i%bo*sk6-sj*r@^m
 DEBUG = True
 
 ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS += [os.environ.get('DJANGO_ALLOWED_HOST')]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
