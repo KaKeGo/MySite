@@ -24,9 +24,6 @@
               <strong>
                   {% if request.user.is_authenticated %}
                   <h2>{{profile.user.username}} - profile</h2>
-                    <div class="text-center">
-                        <img src="{{profile.user.avatar.url}}">
-                    </div>
                   {% else %}
                   <h4>You are not authenticated</h4>
                   {% endif %}
