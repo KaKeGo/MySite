@@ -26,6 +26,14 @@
     }
 </style>
 
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success text-center">
+            <strong>{{message}}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
 {% if user.is_admin %}
 <div class="mx-5 d-row col-sm-12 mt-3">
     <div class="col-sm-2"></div>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from .models import About, Skills
 from .forms import SkillCreateForm
@@ -21,6 +22,8 @@ class AboutView(generic.ListView):
             form = SkillCreateForm(request.POST)
             if form.is_valid():
                 form.save()
+                messages.success(request, 'Skill was added')
+                return redirect('about:about')
         else:
             form = SkillCreateForm()
         return redirect('about:about')

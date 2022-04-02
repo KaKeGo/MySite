@@ -3,6 +3,7 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from accounts.models import CustomUser
 from .models import Blog, Category
@@ -50,7 +51,6 @@ def blog_data_view(request, num_blogs, *args, **kwargs):
             'id': blog.id,
             'title': blog.title,
             'body': blog.body,
-            'image': blog.image.url,
             'category': blog.category,
             'likes': True if request.user in blog.likes.all() else False,
             'count': blog.total_likes,
@@ -113,11 +113,18 @@ class BlogCreateView(generic.CreateView):
             if form.is_valid():
                 obj = form.save(commit=False)
                 obj.author = self.request.user
+                form2.save(commit=False)
                 obj.save()
+                messages.success(request, 'Blog created')
                 return redirect('blogs:blog')
             elif form2.is_valid():
+                form.save(commit=False)
                 form2.save()
+                messages.success(request, 'category added')
                 return redirect('blogs:create')
+        else:
+            messages.error(request, 'Something goes wrong')
+            return redirect('blogs:create')
 
 class BlogUpdateView(generic.UpdateView):
     def get(self, request, slug, *args, **kwargs):

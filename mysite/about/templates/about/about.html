@@ -16,6 +16,14 @@
     }
 </style>
 
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success text-center">
+            <strong>{{message}}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
 <div class="container mt-5">
   <div class="row align-items-start">
     <div class="col-md-1"></div>
