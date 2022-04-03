@@ -47,10 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #Myapps
-    'blogs',
-    'accounts',
-    'contacts',
-    'about',
+    'mysite.blogs',
+    'mysite.accounts',
+    'mysite.contacts',
+    'mysite.about',
 
     'crispy_forms',
     'ckeditor',
